@@ -9,8 +9,12 @@ import pagefind from "astro-pagefind";
 // https://astro.build/config
 export default defineConfig({
   output: 'server',
-  adapter: vercel(),
-  site: "https://irvanma.eu.org",
+  adapter: vercel({
+    webAnalytics: {
+      enabled: true,
+    },
+    maxDuration: 8,
+  }),
   integrations: [tailwind(), sitemap(), mdx(), pagefind()],
   markdown: {
     shikiConfig: {
