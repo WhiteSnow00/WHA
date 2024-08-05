@@ -8,7 +8,7 @@ import pagefind from "astro-pagefind";
 
 // https://astro.build/config
 export default defineConfig({
-  output: 'server',
+  output: 'static',
   adapter: vercel({
     webAnalytics: {
       enabled: true,
@@ -16,9 +16,4 @@ export default defineConfig({
     maxDuration: 8,
   }),
   integrations: [tailwind(), sitemap(), mdx(), pagefind()],
-  markdown: {
-    shikiConfig: {
-      theme: "css-variables",
-    },
-  },
 });
