@@ -7,6 +7,8 @@ import ArrowCard from "@components/ArrowCard.astro";
 import Link from "@components/Link.astro";
 import { getCollection } from "astro:content";
 import TriangleBackground from '../components/TriangleBackground.astro';
+import  ScrollProcess from '../components/Scroll-process.astro';
+import * as SmoothScroll from 'smooth-scroll';
 
 const blog = (await getCollection("blog"))
   .filter((post) => !post.data.draft)
@@ -16,6 +18,9 @@ const blog = (await getCollection("blog"))
 
 <Layout title={HOME.TITLE} description={HOME.DESCRIPTION}>
   <TriangleBackground />
+  <div class="scroller-motion">
+    <ScrollProcess />
+  </div>
   <Container>
     <img
       src="/lappland-cute.webp"
@@ -92,4 +97,11 @@ const blog = (await getCollection("blog"))
       </section>
     </div>
   </Container>
+  <script>
+    const SmoothScroll = require('smooth-scroll');
+    new SmoothScroll('a[href*="#"]', {
+      speed: 500,
+      speedAsDuration: true,
+    });
+  </script>
 </Layout>

@@ -1,6 +1,4 @@
 ---
-import { loadFull } from 'tsparticles';
-import { onMount } from 'solid-js';
 ---
 
 <style>
@@ -17,84 +15,92 @@ import { onMount } from 'solid-js';
 <div id="tsparticles"></div>
 
 <script>
-    import { onMount } from 'solid-js';
-    import { loadFull } from 'tsparticles';
+    function loadScript(src: string, callback: () => void) {
+        const script = document.createElement('script');
+        script.src = src;
+        script.onload = callback;
+        script.onerror = () => console.error(`Failed to load script: ${src}`);
+        document.head.appendChild(script);
+    }
 
-    onMount(async () => {
-        const { tsParticles } = await import('tsparticles');
+    // Load the tsParticles script
+    loadScript('https://cdn.jsdelivr.net/npm/tsparticles@2.9.3/dist/tsparticles.min.js', () => {
+        const tsParticles = (window as any).tsParticles;
 
-        await loadFull(tsParticles);
-
-        tsParticles.load('particles', {
-            fpsLimit: 60,
-            particles: {
-                number: {
-                    value: 100,
-                },
-                color: {
-                    value: "#ff0000",
-                    animation: {
+        if (tsParticles) {
+            tsParticles.load('tsparticles', {
+                fpsLimit: 60,
+                particles: {
+                    number: {
+                        value: 100,
+                    },
+                    color: {
+                        value: "#ff0000",
+                        animation: {
+                            enable: true,
+                            speed: 20,
+                            sync: true,
+                        },
+                    },
+                    shape: {
+                        type: "circle",
+                    },
+                    opacity: {
+                        value: 0.5,
+                    },
+                    size: {
+                        value: { min: 1, max: 3 },
+                    },
+                    links: {
                         enable: true,
-                        speed: 20,
-                        sync: true,
+                        distance: 100,
+                        color: "random",
+                        opacity: 0.4,
+                        width: 1,
+                        triangles: {
+                            enable: true,
+                            color: "#ffffff",
+                            opacity: 0.1,
+                        },
                     },
-                },
-                shape: {
-                    type: "circle",
-                },
-                opacity: {
-                    value: 0.5,
-                },
-                size: {
-                    value: { min: 1, max: 3 },
-                },
-                links: {
-                    enable: true,
-                    distance: 100,
-                    color: "random",
-                    opacity: 0.4,
-                    width: 1,
-                    triangles: {
+                    move: {
                         enable: true,
-                        color: "#ffffff",
-                        opacity: 0.1,
+                        speed: 2,
+                        direction: "none",
+                        outModes: "out",
                     },
                 },
-                move: {
-                    enable: true,
-                    speed: 2,
-                    direction: "none",
-                    outModes: "out",
-                },
-            },
-            interactivity: {
-                events: {
-                    onHover: {
-                        enable: true,
-                        mode: "attract",
+                interactivity: {
+                    events: {
+                        onHover: {
+                            enable: true,
+                            mode: "attract",
+                        },
+                        onClick: {
+                            enable: false,
+                            mode: "push",
+                        },
                     },
-                    onClick: {
-                        enable: false,
-                        mode: "push",
-                    },
-                },
-                modes: {
-                    attract: {
-                        distance: 600,
-                        duration: 0.1,
-                        easing: "ease-out-quad",
-                        factor: 1,
-                        maxSpeed: 50,
-                        speed: 1,
-                    },
-                    push: {
-                        quantity: 4,
+                    modes: {
+                        attract: {
+                            distance: 600,
+                            duration: 0.1,
+                            easing: "ease-out-quad",
+                            factor: 1,
+                            maxSpeed: 50,
+                            speed: 1,
+                        },
+                        push: {
+                            quantity: 4,
+                        },
                     },
                 },
-            },
-            background: {
-                color: "#000000",
-            },
-        });
+                background: {
+                    color: "#000000",
+                },
+            });
+        } else {
+            console.error('tsParticles is not available on window');
+        }
     });
 </script>

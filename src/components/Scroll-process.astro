@@ -1,0 +1,50 @@
+---
+---
+
+<div class="hero-animation">
+  <span class="text-wrapper relative ml-2 opacity-0 transition duration-500">
+    <span class="absolute border-b-2 border-solid border-blue-700 text-transparent">Developer</span>
+    <span class="el-0 absolute border-t-2 border-transparent">
+      <span class="letters">Designer</span>
+    </span>
+    <span class="el-1 absolute border-t-2 border-transparent">
+      <span class="letters">Developer</span>
+    </span>
+  </span>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', async () => {
+    const anime = (await import('animejs/lib/anime.es.js')).default;
+
+    anime.timeline({loop: true})
+        .add({
+          targets: '.hero-animation .el-0-letter',
+          opacity: [0, 1],
+          easing: 'easeOutExpo',
+          duration: 600,
+          delay: (el, i) => 34 * (i + 1),
+        })
+        .add({
+          targets: '.hero-animation .el-0',
+          opacity: 0,
+          duration: 1000,
+          easing: 'easeOutExpo',
+          delay: 1000,
+        })
+        .add({
+          targets: '.hero-animation .el-1-letter',
+          opacity: [0, 1],
+          easing: 'easeOutExpo',
+          duration: 600,
+          delay: (el, i) => 34 * (i + 1),
+        })
+        .add({
+          targets: '.hero-animation .el-1',
+          opacity: 0,
+          duration: 1000,
+          easing: 'easeOutExpo',
+          delay: 1000,
+        });
+  });
+</script>
