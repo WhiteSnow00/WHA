@@ -6,6 +6,7 @@ import { SITE, HOME, SOCIALS } from "@consts";
 import ArrowCard from "@components/ArrowCard.astro";
 import Link from "@components/Link.astro";
 import { getCollection } from "astro:content";
+import TriangleBackground from '../components/TriangleBackground.astro';
 
 const blog = (await getCollection("blog"))
   .filter((post) => !post.data.draft)
@@ -14,6 +15,7 @@ const blog = (await getCollection("blog"))
 ---
 
 <Layout title={HOME.TITLE} description={HOME.DESCRIPTION}>
+  <TriangleBackground />
   <Container>
     <img
       src="/lappland-cute.webp"
