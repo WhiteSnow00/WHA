@@ -1,0 +1,286 @@
+<!DOCTYPE html><html lang="en"> <head><!-- Global Metadata --><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v4.13.1"><!-- Canonical URL --><link rel="canonical" href="http://localhost:3000/blog/b%E1%BA%A3n-th%E1%BB%83-lu%E1%BA%ADn-v%E1%BB%81-%C4%91au-kh%E1%BB%95/"><!-- Primary Meta Tags --><title>Bản Thể Luận Về Đau Khổ | WHA</title><meta name="title" content="Bản Thể Luận Về Đau Khổ | WHA"><meta name="description" content="Bản thể Luận"><!-- Open Graph / Facebook --><meta property="og:type" content="website"><meta property="og:url" content="http://localhost:3000/blog/b%E1%BA%A3n-th%E1%BB%83-lu%E1%BA%ADn-v%E1%BB%81-%C4%91au-kh%E1%BB%95/"><meta property="og:title" content="Bản Thể Luận Về Đau Khổ | WHA"><meta property="og:description" content="Bản thể Luận"><meta property="og:image" content="http://localhost:3000/og.jpg"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="http://localhost:3000/blog/b%E1%BA%A3n-th%E1%BB%83-lu%E1%BA%ADn-v%E1%BB%81-%C4%91au-kh%E1%BB%95/"><meta property="twitter:title" content="Bản Thể Luận Về Đau Khổ | WHA"><meta property="twitter:description" content="Bản thể Luận"><meta property="twitter:image" content="http://localhost:3000/og.jpg"><!-- PageFind --><link href="/pagefind/pagefind-ui.css" rel="stylesheet"><script src="/pagefind/pagefind-ui.js"></script><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script>
+  function init() {
+    preloadTheme();
+    onScroll();
+    animate();
+    updateThemeButtons();
+    addCopyCodeButtons();
+    setGiscusTheme();
+
+    const backToTop = document.getElementById("back-to-top");
+    backToTop?.addEventListener("click", (event) => scrollToTop(event));
+
+    const backToPrev = document.getElementById("back-to-prev");
+    backToPrev?.addEventListener("click", () => window.history.back());
+
+    const lightThemeButton = document.getElementById("light-theme-button");
+    lightThemeButton?.addEventListener("click", () => {
+      localStorage.setItem("theme", "light");
+      toggleTheme(false);
+      updateThemeButtons();
+    });
+
+    const darkThemeButton = document.getElementById("dark-theme-button");
+    darkThemeButton?.addEventListener("click", () => {
+      localStorage.setItem("theme", "dark");
+      toggleTheme(true);
+      updateThemeButtons();
+    });
+
+    const systemThemeButton = document.getElementById("system-theme-button");
+    systemThemeButton?.addEventListener("click", () => {
+      localStorage.setItem("theme", "system");
+      toggleTheme(window.matchMedia("(prefers-color-scheme: dark)").matches);
+      updateThemeButtons();
+    });
+
+    window
+      .matchMedia("(prefers-color-scheme: dark)")
+      .addEventListener("change", (event) => {
+        if (localStorage.theme === "system") {
+          toggleTheme(event.matches);
+        }
+      });
+
+    document.addEventListener("scroll", onScroll);
+  }
+
+  function updateThemeButtons() {
+    const theme = localStorage.getItem("theme");
+    const lightThemeButton = document.getElementById("light-theme-button");
+    const darkThemeButton = document.getElementById("dark-theme-button");
+    const systemThemeButton = document.getElementById("system-theme-button");
+
+    function removeActiveButtonTheme(button) {
+      button?.classList.remove("bg-black/5");
+      button?.classList.remove("dark:bg-white/5");
+    }
+
+    function addActiveButtonTheme(button) {
+      button?.classList.add("bg-black/5");
+      button?.classList.add("dark:bg-white/5");
+    }
+
+    removeActiveButtonTheme(lightThemeButton);
+    removeActiveButtonTheme(darkThemeButton);
+    removeActiveButtonTheme(systemThemeButton);
+
+    if (theme === "light") {
+      addActiveButtonTheme(lightThemeButton);
+    } else if (theme === "dark") {
+      addActiveButtonTheme(darkThemeButton);
+    } else {
+      addActiveButtonTheme(systemThemeButton);
+    }
+  }
+
+  function animate() {
+    const animateElements = document.querySelectorAll(".animate");
+
+    animateElements.forEach((element, index) => {
+      setTimeout(() => {
+        element.classList.add("show");
+      }, index * 100);
+    });
+  }
+
+  function onScroll() {
+    if (window.scrollY > 0) {
+      document.documentElement.classList.add("scrolled");
+    } else {
+      document.documentElement.classList.remove("scrolled");
+    }
+  }
+
+  function scrollToTop(event) {
+    event.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
+
+  function toggleTheme(dark) {
+    const css = document.createElement("style");
+
+    css.appendChild(
+      document.createTextNode(
+        `* {
+             -webkit-transition: none !important;
+             -moz-transition: none !important;
+             -o-transition: none !important;
+             -ms-transition: none !important;
+             transition: none !important;
+          }
+        `,
+      ),
+    );
+
+    document.head.appendChild(css);
+
+    if (dark) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+
+    window.getComputedStyle(css).opacity;
+    document.head.removeChild(css);
+
+    setGiscusTheme();
+  }
+
+  function preloadTheme() {
+    const userTheme = localStorage.theme;
+
+    if (userTheme === "light" || userTheme === "dark") {
+      toggleTheme(userTheme === "dark");
+    } else {
+      toggleTheme(window.matchMedia("(prefers-color-scheme: dark)").matches);
+    }
+  }
+
+  function addCopyCodeButtons() {
+    let copyButtonLabel = "📋";
+    let codeBlocks = Array.from(document.querySelectorAll("pre"));
+
+    async function copyCode(codeBlock, copyButton) {
+      const codeText = codeBlock.innerText;
+      const buttonText = copyButton.innerText;
+      const textToCopy = codeText.replace(buttonText, "");
+
+      await navigator.clipboard.writeText(textToCopy);
+      copyButton.innerText = "✅";
+
+      setTimeout(() => {
+        copyButton.innerText = copyButtonLabel;
+      }, 2000);
+    }
+
+    for (let codeBlock of codeBlocks) {
+      const wrapper = document.createElement("div");
+      wrapper.style.position = "relative";
+
+      const copyButton = document.createElement("button");
+      copyButton.innerText = copyButtonLabel;
+      copyButton.classList = "copy-code";
+
+      codeBlock.setAttribute("tabindex", "0");
+      codeBlock.appendChild(copyButton);
+
+      codeBlock.parentNode.insertBefore(wrapper, codeBlock);
+      wrapper.appendChild(codeBlock);
+
+      copyButton?.addEventListener("click", async () => {
+        await copyCode(codeBlock, copyButton);
+      });
+    }
+  }
+
+  const setGiscusTheme = () => {
+    const giscus = document.querySelector(".giscus-frame");
+
+    const isDark = document.documentElement.classList.contains("dark");
+
+    if (giscus) {
+      const url = new URL(giscus.src);
+      url.searchParams.set("theme", isDark ? "dark" : "light");
+      giscus.src = url.toString();
+    }
+  };
+
+  document.addEventListener("DOMContentLoaded", () => init());
+  document.addEventListener("astro:after-swap", () => init());
+  preloadTheme();
+</script><link rel="stylesheet" href="/_astro/_slug_.BBVsdm3J.css">
+<style>summary[data-astro-cid-xvrfupwn]{cursor:pointer;border-top-left-radius:.5rem;border-top-right-radius:.5rem;padding:.375rem .75rem;font-weight:500;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}summary[data-astro-cid-xvrfupwn]:hover{background-color:#0000000d}summary[data-astro-cid-xvrfupwn]:hover:is(.dark *){background-color:#ffffff0d}details[data-astro-cid-xvrfupwn][open] summary[data-astro-cid-xvrfupwn]{background-color:#0000000d}details[data-astro-cid-xvrfupwn][open] summary[data-astro-cid-xvrfupwn]:is(.dark *){background-color:#ffffff0d}
+</style><script type="module" src="/_astro/hoisted.BIFKrkgc.js"></script></head> <body> <header data-astro-transition-persist="astro-l7r54iwe-1"> <div class="mx-auto max-w-screen-sm px-3"> <div class="flex flex-wrap justify-between gap-y-2"> <a href="/" target="_self" class="inline-block decoration-black/30 dark:decoration-white/30 hover:decoration-black/50 focus-visible:decoration-black/50 dark:hover:decoration-white/50 dark:focus-visible:decoration-white/50 text-current hover:text-black focus-visible:text-black dark:hover:text-white dark:focus-visible:text-white transition-colors duration-300 ease-in-out">  <div class="font-semibold"> WHA </div>  </a> <nav class="flex items-center gap-1 text-sm"> <a href="/blog" target="_self" class="inline-block decoration-black/30 dark:decoration-white/30 hover:decoration-black/50 focus-visible:decoration-black/50 dark:hover:decoration-white/50 dark:focus-visible:decoration-white/50 text-current hover:text-black focus-visible:text-black dark:hover:text-white dark:focus-visible:text-white transition-colors duration-300 ease-in-out underline underline-offset-[3px]"> blog </a> <span> / </span> <button id="magnifying-glass" aria-label="Search" class="flex items-center rounded border border-black/15 bg-neutral-100 px-2 py-1 text-xs transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black focus-visible:bg-black/5 focus-visible:text-black dark:border-white/20 dark:bg-neutral-900 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:bg-white/5 dark:focus-visible:text-white"> <svg height="16" stroke-linejoin="round" viewBox="0 0 16 16" width="16" style="color: currentcolor;"><path fill-rule="evenodd" clip-rule="evenodd" d="M3.5 7C3.5 5.067 5.067 3.5 7 3.5C8.933 3.5 10.5 5.067 10.5 7C10.5 7.88461 10.1718 8.69256 9.63058 9.30876L9.30876 9.63058C8.69256 10.1718 7.88461 10.5 7 10.5C5.067 10.5 3.5 8.933 3.5 7ZM9.96544 11.0261C9.13578 11.6382 8.11014 12 7 12C4.23858 12 2 9.76142 2 7C2 4.23858 4.23858 2 7 2C9.76142 2 12 4.23858 12 7C12 8.11014 11.6382 9.13578 11.0261 9.96544L14.0303 12.9697L14.5607 13.5L13.5 14.5607L12.9697 14.0303L9.96544 11.0261Z" fill="currentColor"></path></svg>
+&nbsp;Search
+</button> </nav> </div> </div> </header> <main>   <div class="mx-auto max-w-screen-sm px-3"> <div class="animate"> <a href="/blog" class="not-prose group relative flex w-fit flex-nowrap rounded border border-black/15 py-1.5 pl-7 pr-3 transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black focus-visible:bg-black/5 focus-visible:text-black dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:bg-white/5 dark:focus-visible:text-white"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="absolute left-2 top-1/2 size-4 -translate-y-1/2 fill-none stroke-current stroke-2"> <line x1="5" y1="12" x2="19" y2="12" class="translate-x-2 scale-x-0 transition-transform duration-300 ease-in-out group-hover:translate-x-0 group-hover:scale-x-100 group-focus-visible:translate-x-0 group-focus-visible:scale-x-100"></line> <polyline points="12 5 5 12 12 19" class="translate-x-1 transition-transform duration-300 ease-in-out group-hover:translate-x-0 group-focus-visible:translate-x-0"></polyline> </svg> <div class="text-sm"> Back to blog </div> </a> </div> <div class="my-10 space-y-1"> <div class="animate flex items-center gap-1.5"> <div class="font-base text-sm"> <time datetime="2024-08-01T00:00:00.000Z"> August 01, 2024 </time> </div>
+&bull;
+<div class="font-base text-sm"> 25 min read </div> </div> <h1 class="animate text-3xl font-semibold text-black dark:text-white"> Bản Thể Luận Về Đau Khổ </h1> </div> <details open class="animate rounded-lg border border-black/15 dark:border-white/20" data-astro-cid-xvrfupwn> <summary data-astro-cid-xvrfupwn>Table of Contents</summary> <nav class="" data-astro-cid-xvrfupwn> <ul class="py-3" data-astro-cid-xvrfupwn> <li class="list-inside list-disc px-6 py-1.5 text-sm"> <a href="#i-khái-niệm-của-đau-khổ" target="_self" class="inline-block decoration-black/30 dark:decoration-white/30 hover:decoration-black/50 focus-visible:decoration-black/50 dark:hover:decoration-white/50 dark:focus-visible:decoration-white/50 text-current hover:text-black focus-visible:text-black dark:hover:text-white dark:focus-visible:text-white transition-colors duration-300 ease-in-out underline underline-offset-[3px]"> I. Khái niệm của đau khổ </a>  </li><li class="list-inside list-disc px-6 py-1.5 text-sm"> <a href="#ii-tính-nhị-nguyên-của-tinh-thần" target="_self" class="inline-block decoration-black/30 dark:decoration-white/30 hover:decoration-black/50 focus-visible:decoration-black/50 dark:hover:decoration-white/50 dark:focus-visible:decoration-white/50 text-current hover:text-black focus-visible:text-black dark:hover:text-white dark:focus-visible:text-white transition-colors duration-300 ease-in-out underline underline-offset-[3px]"> II. Tính nhị nguyên của tinh thần </a>  </li><li class="list-inside list-disc px-6 py-1.5 text-sm"> <a href="#iii-đau-khổ-tự-do-và-sa-đọa" target="_self" class="inline-block decoration-black/30 dark:decoration-white/30 hover:decoration-black/50 focus-visible:decoration-black/50 dark:hover:decoration-white/50 dark:focus-visible:decoration-white/50 text-current hover:text-black focus-visible:text-black dark:hover:text-white dark:focus-visible:text-white transition-colors duration-300 ease-in-out underline underline-offset-[3px]"> III. Đau khổ, tự do và sa đọa </a>  </li><li class="list-inside list-disc px-6 py-1.5 text-sm"> <a href="#iv-con-đường-từ-suy-thoái-đến-siêu-việt" target="_self" class="inline-block decoration-black/30 dark:decoration-white/30 hover:decoration-black/50 focus-visible:decoration-black/50 dark:hover:decoration-white/50 dark:focus-visible:decoration-white/50 text-current hover:text-black focus-visible:text-black dark:hover:text-white dark:focus-visible:text-white transition-colors duration-300 ease-in-out underline underline-offset-[3px]"> IV. Con đường từ suy thoái đến siêu việt </a>  </li><li class="list-inside list-disc px-6 py-1.5 text-sm"> <a href="#v-cộng-đồng-con-người" target="_self" class="inline-block decoration-black/30 dark:decoration-white/30 hover:decoration-black/50 focus-visible:decoration-black/50 dark:hover:decoration-white/50 dark:focus-visible:decoration-white/50 text-current hover:text-black focus-visible:text-black dark:hover:text-white dark:focus-visible:text-white transition-colors duration-300 ease-in-out underline underline-offset-[3px]"> V. Cộng đồng con người </a>  </li> </ul> </nav> </details> <article class="animate"> <p>Bản thể luận/Hiện Sinh - Đau Khổ Là Gì?</p>
+<h2 id="i-khái-niệm-của-đau-khổ">I. Khái niệm của đau khổ</h2>
+<p>Đau khổ là một trạng thái cảm xúc tiêu cực mà con người và động vật đều có thể trải nghiệm, tuy nhiên, đau khổ không phải là sự phủ định hoàn toàn của sự sống, trái lại, nó là một phần không thể thiếu trong quá trình tồn tại và phát triển của mọi sinh vật. Đối với động vật, khi có sự mất cân bằng về định hướng bản năng, chúng sẽ cảm thấy đau khổ, và cảm giác đau đớn dữ dội này chính là biểu hiện của một loại “nội tại tính” nhất định ở động vật nói chung và con người nói riêng. Sự xung đột giữa định hướng bản năng nguyên thủy và mô thức trung gian sinh tồn nguyên thủy đòi hỏi một bình diện trung gian, tuy nhiên, động vật không thể tự xưng là “tôi” vì chúng thiếu đi nội tại tính. Nếu động vật thực sự có nội tại tính, có sự phân biệt giữa trong và ngoài, chúng có thể kiềm chế nỗi đau của mình, việc kiềm chế đó đồng nghĩa với việc áp đặt một phủ định bậc hai, hay nói cách khác là áp đặt một sự trung gian đối với tính bất khả trung gian của chính sự trung gian, đây là điều mà động vật không thể làm được.</p>
+<p>Tính bất khả trung gian của chính sự trung gian có thể được hiểu như là sự sở hữu của lịch sử đối với chính bản thân nó, hay nói cách khác, nó chính là một sự khởi đầu mang tính nhân đôi, một lịch sử song hành và đan xen. Đây chính là khoảnh khắc bình minh trước cả khởi đầu mà Heidegger đã từng đề cập đến, có thể gọi là “quá khứ của quá khứ”. Chỉ khi trở thành một sinh vật, một động vật, con người mới có thể thực sự trải nghiệm và cảm nhận được tính dị chất này, và sự đau đớn chính là minh chứng rõ nét nhất cho điều đó. Ví dụ khi chúng ta đau đớn, dường như không phải “cái tôi” đang trực tiếp trung gian hóa cảm giác đau đớn ấy, mà thay vào đó, có một chủ thể trung gian khác đang gánh chịu nó. Ví dụ khi bàn tay bị đau, ta không cảm thấy chính mình đang đau, mà là bàn tay đang đau. Bàn tay trở thành một chủ thể trung gian, mang trên mình sự đau đớn mà “cái tôi” không hề mong muốn phải trung gian hóa. Tuy nhiên, dường như luôn có một chủ thể trung gian khác, như chính bàn tay, thân xác hay sự sống mang bản chất động vật, đang phải gánh chịu sự đau đớn ấy. Tính dị chất này chính là một lịch sử tiền sử, một lịch sử trước cả lịch sử của nhận thức và ý thức.</p>
+<p>Sự trung gian mang tính tự thân, nhưng đồng thời cũng mang tính bất khả trung gian. Chính sự trung gian, tức là bản thân của quá trình trung gian hóa, lại mang trong mình tính bất khả trung gian, tức là sự nhân đôi của chính nó. Nó vừa sở hữu chính mình, vừa sở hữu sự nhân đôi của chính mình. Sự trung gian không chỉ đơn thuần là một quá trình đơn tuyến và trực tiếp, mà thông qua việc sở hữu chính quá trình trung gian, nó trở thành một chủ thể mang tính nhân đôi. Cũng giống như thân thể khi đau đớn, thông qua việc sở hữu sự đau đớn, đã trở thành một quá trình trung gian mang tính nhân đôi. Tuy nhiên, sự nhân đôi này của sự trung gian và chủ thể của nó không mang tính chất tự phản tỉnh hay tự chỉ thị ngược. Nó vẫn chưa phải là đặc tính của con người, mà mới chỉ là đặc tính của loài vật. Chính vì vậy, sự đau khổ vẫn hiện diện như một trạng thái tất yếu. Nếu sự nhân đôi này mang tính tự phản tỉnh, thì ngay cả sự đau khổ cũng sẽ được mã hóa và đưa vào hệ thống ký hiệu như một điểm để học hỏi và đáp ứng. Khi ấy, sự đau khổ sẽ trở thành một phần nội tại trong chủ thể, thay vì chỉ đơn thuần là một trạng thái bị áp đặt từ bên ngoài.</p>
+<h2 id="ii-tính-nhị-nguyên-của-tinh-thần">II. Tính nhị nguyên của tinh thần</h2>
+<p>Trong triết học của mình, Heidegger đã đưa ra một sự phê phán sâu sắc về quan điểm của Hegel liên quan đến khái niệm tinh thần (Geist) cũng như mối quan hệ giữa tinh thần với sự phủ định, đau khổ. Theo Heidegger, sự phủ định mà Hegel đề cập trong triết học của ông ta chưa đủ nguyên sơ, chưa chạm tới cái nền tảng của sự tồn tại, trong khi bản thân đau khổ mới chính là cái nguyên sơ nhất, là điều kiện tiên quyết cho mọi nhận thức và hoạt động của con người trong thế giới. Quan điểm này của Heidegger quả thực không sai. Nếu đau khổ thực sự đạt tới một trạng thái tự phản tỉnh bậc hai, trở thành sự tự phủ định ở bậc hai, thì khi đó nó sẽ vươn tới Geist, trở thành tinh thần tuyệt đối. Khi ấy, trải nghiệm về đau khổ sẽ không còn nữa, chính bản thân sự đau khổ cũng không còn được trải nghiệm.</p>
+<p>Sự đau khổ không được trung gian hóa chính là một thể hiện của tinh thần (Geist), nếu xét ở góc độ chủ thể. Đây chính là tính nội tại thuộc về phía con người. Trong trường hợp này, tinh thần bộc lộ bản chất lưỡng diện của nó - một mặt thiêng liêng, siêu việt, và một mặt trần tục, hữu hạn. Ở chiều kích con người, tinh thần vận hành như một nỗi đau không thực sự gây đau đớn, một hình thức tự giày vò của chính sự đau khổ. Và sự mất cân bằng của định hướng nguyên sơ giờ đây không còn thể hiện qua quá trình trung gian dị chất nữa. Thay vào đó, nó trở thành một yếu tố duy nhất nằm ở một phía, nhưng lại có khả năng cân bằng cả 5 phía còn lại, từ đó tạo nên sự cân bằng của toàn thể, xóa bỏ mọi đau đớn. Nỗi đau biến thành một cảm giác không còn gây khổ sở nữa, và chính điều này chính là bản chất của lý tính. Nói cách khác, một trong hai mặt của tinh thần chính là lý tính, và nó thuộc về phía con người. Như vậy, chúng ta có thể thấy rằng lý tính, vốn là một phần của tinh thần, chính là sự chuyển hóa nỗi đau thành một trạng thái cân bằng và không còn gây khổ đau. Đây là một quá trình nội tại diễn ra trong tâm thức con người, giúp họ vượt qua những giới hạn của bản thân và tiếp cận với chiều kích siêu việt của tồn tại. Thông qua lý tính, con người có thể nhận thức được ý nghĩa sâu xa của sự đau khổ và biến nó thành động lực để tiến bộ, hoàn thiện chính mình.</p>
+<p>Quá trình vận động và trạng thái tồn tại của tinh thần tuyệt đối là không mang tính chất đau đớn. Tuy nhiên, khi tinh thần tuyệt đối bước vào quá trình tái sinh, hay nói cách khác là quá trình hiện thực hóa bản thân trong thế giới hữu hạn, thì sự đau khổ sẽ xuất hiện như một tất yếu. Và khi xét đến tính hai mặt của tinh thần tuyệt đối, chúng ta có thể nhận thấy sự mất cân bằng giữa hai khía cạnh này, với tỷ lệ có thể là 1/5, tức khía cạnh siêu việt chiếm ưu thế hơn hẳn so với khía cạnh thế tục. Nếu chúng ta coi tính nội tại, tức sự tự ý thức, là thuộc về con người, thì con người sẽ trở thành trung tâm của toàn bộ tiến trình vận động tinh thần và là nền tảng cho cả hệ thống ký hiệu diễn tả thực tại. Mặt khác, khi tinh thần tuyệt đối phân thân và thể hiện ra bên ngoài, nó sẽ mang những hình thức như tự nhiên, chân lý tuyệt đối hay bản thể luận, trường hiện sinh, quy luật bất biến của tồn tại, và đạo đức học. Tuy số lượng chính xác của những phân thân này khó có thể xác định, nhưng chúng ta có thể tạm ước lượng là khoảng 5 phía. Quá trình tái sinh của tinh thần tuyệt đối cũng chính là quá trình mất cân bằng của nó, và sự mất cân bằng này sẽ dẫn đến đau khổ, đặc biệt là đau khổ đối với con người. Khi đứng ở vị trí của đạo đức, con người sẽ phải gánh chịu nỗi đau đớn mang tính đạo đức và cảm nhận sâu sắc tính sứ mệnh của nhân loại. Họ sẽ phải đóng vai trò trung gian hóa những gì vốn không thể trung gian hóa, tức là kết nối thế giới hữu hạn với tinh thần tuyệt đối vô hạn.</p>
+<p>Tính không thể trung gian của chính sự trung gian, tức là tính dị chất, đã trở thành một thực thể trung gian. Khi được trung gian hóa, tính dị chất chuyển hóa thành sự đau đớn. Tuy nhiên, để tính dị chất trở thành đau đớn, cần phải có một chủ thể để trung gian và trải nghiệm nó. Ví dụ, khi một người đang ngủ, vết thương trên cơ thể họ tạm thời không gây đau đớn vì thiếu đi sự trung gian từ ý thức của chủ thể. Nếu không có sự trung gian từ một chủ thể cụ thể, tính dị chất tự thân không thể biến thành cảm giác đau đớn, mà chỉ đơn thuần tồn tại như một thực thể trừu tượng. Do đó, tính dị chất vốn có tiềm năng để không bị trung gian hóa và không gây ra đau khổ.</p>
+<p>Sự nhị nguyên hóa của tinh thần tuyệt đối (Geist) thể hiện ở hai phương diện: thần thánh và con người. Ở phía thần thánh, sự đau khổ dường như không hiện diện. Nếu có sự đau khổ, nó chỉ tồn tại ở phía con người, thể hiện qua những đau đớn trong ý thức chính trị, ý thức đạo đức, và các biến cố bi thảm của nhân loại. Tuy nhiên, ở những phương diện khác của thế giới tự nhiên, như hiện tượng mặt trời mọc và lặn, sự đau khổ không xuất hiện, bởi chúng diễn ra như những tính dị chất thuần túy mà không có sự can thiệp trung gian từ bất kỳ chủ thể nào, kể cả một đấng tối cao. Sự vắng mặt của thần linh trong vai trò trung gian hóa những hiện tượng tự nhiên này cho thấy một khoảng trống trong mối liên hệ giữa Thượng đế và thế giới.</p>
+<h2 id="iii-đau-khổ-tự-do-và-sa-đọa">III. Đau khổ, tự do và sa đọa</h2>
+<p>Trong hệ thống triết học của Hegel, khái niệm về tinh thần (Geist) đóng vai trò trung tâm và là động lực chủ đạo cho toàn bộ tiến trình biện chứng. Chính tinh thần, thông qua quá trình tự phủ định và tự khẳng định bản thân, dẫn đến sự tự nhận thức và tự hiện thực hóa của Ý niệm tuyệt đối. Tuy nhiên, khi xét kỹ bản chất của tinh thần, chúng ta có thể nhận ra một sự nhị nguyên sâu sắc, một mâu thuẫn nội tại giữa đau khổ và tự do, giữa sự trung gian và sự tự khẳng định.</p>
+<p>Trong quá trình tự phủ định bản thân ở bậc hai để vươn lên trở thành chính mình, tinh thần trải qua một tiến trình mất cân bằng. Geist, hay tinh thần, chính là sự nhân đôi hóa đau khổ theo một định hướng nguyên sơ, với tỷ lệ mất cân bằng là 1/5. Điều này có nghĩa là trong sáu định hướng nguyên sơ của tinh thần, có một định hướng chiếm ưu thế hơn hẳn năm định hướng còn lại, dẫn đến sự mất cân bằng trong cấu trúc tổng thể. Tuy nhiên, chính trong con người, một trong sáu định hướng nguyên sơ ấy, lại hàm chứa khả năng vượt qua sự mất cân bằng này. Con người có thể tồn tại như một điểm nội tại, một trạng thái không chịu sự chi phối của đau khổ. Điểm nội tại này có khả năng trung gian hóa, dung hòa các thái cực và sự đối lập, tạo nên một dạng tự do đặc thù của nhân loại.</p>
+<p>Đây là một sự tự do mang tính khởi nguyên, bởi nó bắt nguồn từ chính tính nội tại của con người, một tính nội tại không bị quy định bởi đau khổ. Trong trạng thái này, tính dị biệt, sự khác biệt, duy trì trạng thái không bị trung gian hóa của chính nó. Sự tự trung gian của tính dị biệt chính là việc duy trì trạng thái không bị trung gian hóa để tự khẳng định chính mình. Nói cách khác, trạng thái trung gian của tính dị biệt nằm ở chỗ làm cho bản thân nó không bị trung gian hóa bởi bất cứ điều gì khác. Và chính tính dị biệt này tạo nên cơ sở bản thể học cho tính chủ thể, nó là cơ sở để chủ thể tồn tại với tư cách là một thực thể độc lập nằm ở chỗ nó duy trì được trạng thái không bị quy định, không bị trung gian hóa bởi các yếu tố bên ngoài, qua đó tự khẳng định được bản thân. Theo cách diễn đạt của Heidegger, đây chính là hành vi tự hành hạ, tự giày vò bản thân của tính dị biệt, nhằm bảo vệ sự độc lập và tự chủ của mình.</p>
+<p>Đau khổ mang trong mình cả tính giải phóng và tính sa đọa. Theo triết học của Hegel, đau khổ lớn nhất chính là đau khổ của tinh thần tuyệt đối, nhưng nhìn chung, đó là một nỗi đau vô cảm, không thực sự gây ra cảm giác đau đớn. Tuy nhiên, nỗi đau của tinh thần tuyệt đối nằm ở chỗ nó không cảm thấy đau, giống như một người bị tổn thương thần kinh đau đớn, dù có làm gì với bản thân cũng không thấy đau, và vì thế mà căm ghét tất cả mọi thứ. Đặc điểm của tinh thần tuyệt đối nằm ở tính vô cảm của nó. tinh thần tuyệt đối không hề đau đớn, nó sẽ lạnh lùng xé nát tất cả, trung gian hóa mọi thứ thông qua quá trình biện chứng. Tuy nhiên, chính trong sự đau khổ này, tinh thần tuyệt đối tìm thấy con đường giải phóng. Một mặt, tính giải phóng nằm ở việc tinh thần phải thông qua hoạt động của con người, thông qua hoạt động của động vật được nhân hóa, để tự giải phóng chính mình. Ở đây, con người không thể tránh khỏi nỗi đau, họ buộc phải chịu đau khổ. Nếu con người không đau, thì họ chỉ đơn thuần là một phần của nỗi đau vô cảm của tinh thần, chứ chưa phải là một con người độc lập. Con người phải là một thực thể duy trì khả năng cảm nhận nỗi đau của chính mình, chứ không phải là một kẻ hoàn toàn thờ ơ hay vô cảm trước sự đau đớn.</p>
+<p>Theo Hegel, chỉ khi con người ý thức được nỗi đau của mình, đối diện và vượt qua nó, thì khi đó tinh thần mới có thể tự giải phóng khỏi trạng thái vô cảm và đạt tới tự do đích thực. Nói cách khác, sự đau khổ của con người chính là điều kiện cần thiết cho quá trình tự giải phóng của tinh thần tuyệt đối. Mặt khác, tính sa đọa được thể hiện ở sự “trở thành tự nhiên” của tinh thầ hay sự sa đọa của tinh thần tuyệt đối chính là tự nhiên. Điều này được Hegel khẳng định rõ ràng trong phần cuối của cuốn ” Science of Logic”, khi ông cho rằng sự trở thành tự nhiên là một sự sa đọa vĩ đại của tinh thần. Nhưng sự sa đọa này không mang tính cứu rỗi, bởi vì nó đồng nghĩa với việc tinh thần hoàn toàn chìm đắm trong trạng thái vô cảm, không còn cảm nhận được nỗi đau nữa.</p>
+<p>Như vậy, chúng ta có thể thấy rằng chính trong cấu trúc của tinh thần đã tiềm ẩn mầm mống của sự phân đôi, của những mâu thuẫn không thể điều hòa. tinh thần vừa hướng đến sự tự giải phóng, tự khẳng định bản thân thông qua quá trình tự phủ định, nhưng đồng thời cũng mang trong mình nguy cơ tự hủy diệt, tự triệt tiêu trong trạng thái vô cảm, vô ý thức. Con người, với tư cách là hiện thân của tinh thần, phải đối diện với những nghịch lý này, phải vật lộn với nỗi đau và khát vọng tự do trong chính bản thân mình. Tính nhị nguyên của tinh thần, vì thế, không chỉ là một vấn đề siêu hình trừu tượng, mà còn là một thách thức hiện sinh mà mỗi cá nhân phải đương đầu trong cuộc sống của chính mình.</p>
+<h2 id="iv-con-đường-từ-suy-thoái-đến-siêu-việt">IV. Con đường từ suy thoái đến siêu việt</h2>
+<p>Trong lịch sử triết học, đặc biệt là trong tư tưởng của Hegel và các triết gia hiện sinh, chúng ta thường bắt gặp một quan niệm về sự phát triển biện chứng của tinh thần và ý thức con người. Đó là một hành trình đầy chông gai và thử thách, xuất phát từ sự suy thoái và đau khổ, nhưng cuối cùng dẫn tới sự giải thoát và siêu việt. Toàn bộ quá trình này được ví như một chuyển động sóng, một đường vòng đi xuống vực sâu tăm tối trước khi vươn lên đỉnh cao chói lọi. Theo một nghĩa nào đó, sự suy thoái và đau khổ lại chính là điều kiện tiên quyết, là ngọn lửa thử vàng cho sự thăng hoa và cứu rỗi của tâm hồn.</p>
+<p>Lý giải cho điều này, các triết gia cho rằng con người không thể một bước trực tiếp đạt tới cõi giải thoát thanh tịnh mà không trải qua những thử thách cam go và những nỗi đau thương cùng cực của cuộc sống trần thế. Họ phải mang theo chính những yếu tố từ cõi thấp, từ sự hỗn mang và bất toàn của thế giới hiện tượng, như một hành trang, một nhiên liệu cần thiết để vươn lên cõi cao, cõi của tâm linh và chân lý tuyệt đối. Giống như một hạt mầm phải đâm chồi từ lòng đất tối tăm và giá lạnh, một tâm hồn phải trải qua màn đêm đen của đau thương mới có thể nở rộ và toả sáng.</p>
+<p>Với Hegel cùng khái niệm Aufhebung nổi tiếng của mình, ông đã diễn tả một cách xuất sắc ý niệm về sự phát triển biện chứng này. Aufhebung vừa mang nghĩa phủ định, vừa mang nghĩa bảo tồn và nâng lên một tầm cao mới. Khi một giai đoạn phát triển bị phủ định, nó không đơn thuần biến mất mà vẫn được bảo tồn và nâng lên thành một giai đoạn cao hơn, phong phú hơn. Sự suy thoái và đau khổ, theo nghĩa này, không phải là sự phủ định tiêu cực thuần túy, mà là một phủ định biện chứng, một “cái chết sáng tạo” mở đường cho sự tái sinh và thăng hoa. Chỉ khi đối diện và vượt qua sự suy thoái, con người mới có thể tiến tới ánh sáng rực rỡ của chân lý và tự do.</p>
+<p>Tương tự, các triết gia hiện sinh như Heidegger, Sartre hay Camus cũng nhấn mạnh vai trò của sự đau khổ và tuyệt vọng như một phần không thể thiếu trong hành trình hiện sinh đầy bi kịch của con người. Với Heidegger, con người bị “ném” vào thế giới, vào cảnh ngộ là người-bị-ném (Geworfenheit), một tình thế bị giới hạn bởi sự hữu hạn và cái chết. Tuy nhiên, chính nhận thức sâu sắc về tính hữu hạn này, về sự suy thoái hiện sinh, lại thôi thúc con người vươn lên, nắm bắt những khả thể đích thực của mình, hướng tới sự tự do và chân thực trong cái mà Heidegger gọi là “quyết tâm” (Entschlossenheit). Sartre cũng cho rằng con người bị “lên án phải tự do”, phải gánh chịu sự bất định và trống rỗng tột cùng của thân phận. Nhưng chính từ sự trống rỗng như một khoảng không vô tận ấy, con người buộc phải tự tạo cho mình một ý nghĩa, phải tự định đoạt và dấn thân không ngừng, để khẳng định sự hiện hữu đích thực của mình. Còn với Camus, sự phi lý và vô nghĩa của cuộc đời là một chân lý phũ phàng không thể chối bỏ, nhưng con người vẫn phải kiên cường đối diện và nổi loạn, như Sisyphus mãi mãi lăn tảng đá lên đỉnh núi dù biết rằng nó sẽ lại lăn xuống vực sâu không đáy. Chính trong sự nổi loạn anh dũng trước nghịch cảnh ấy, con người mới thực sự khẳng định phẩm giá và ý nghĩa cao cả của mình.</p>
+<h2 id="v-cộng-đồng-con-người">V. Cộng đồng con người</h2>
+<p>Mặt khác, trong hệ thống tư tưởng của chủ nghĩa duy vật biện chứng, khái niệm về sự cộng đồng hóa của con người đóng một vai trò hết sức quan trọng, đặc biệt là trong mối tương quan biện chứng phức tạp và sâu sắc với ý niệm về Geist hay tinh thần tuyệt đối. Cộng đồng, theo nghĩa này, không đơn thuần đồng nhất với Geist, với linh hồn hay thánh linh, mà là một thực thể có bản chất riêng, không thể bị tập trung hóa hay quy về một thực thể duy nhất. Đó là một thực thể từ chối sự nội tại hóa, không chấp nhận bị đồng hóa hay hòa tan vào bất kỳ một chủ thể nào, dù là thần thánh hay con người. Tuy nhiên, điều đáng chú ý là sự từ chối nội tại hóa này của cộng đồng lại không mang tính chất đau đớn như sự tự phủ định của tinh thần.</p>
+<p>Chính vì sự từ chối nội tại hóa mang tính nguyên tắc này mà cộng đồng thể hiện bản chất của một đám đông, một quần thể động vật, với những đặc tính như tính tập thể, tính đa dạng, tính bình đẳng. Nhưng đồng thời, chính vì tính chất vô cảm trước sự đau đớn, trước những mâu thuẫn và xung đột nội tại, mà cộng đồng lại mang những đặc tính của Geist, của tinh thần tuyệt đối vốn siêu việt lên trên mọi sự phân chia và đối lập. Như vậy, có thể thấy rằng cộng đồng chính là sự tái hiện của tính nhị nguyên vốn có trong mối quan hệ giữa tinh thần và tự nhiên, giữa chủ thể và khách thể, nhưng là một sự tái hiện dưới những hình thức và với những yếu tố mới mẻ: tính tập thể hóa, tính đa nguyên, và mối quan hệ đồng đẳng, ngang hàng giữa các thành viên. Quá trình cộng đồng hóa được xem như một sự trung gian hóa của tinh thần tuyệt đối thông qua sự suy thoái của nó, đã làm phát lộ và khôi phục lại bản chất đa dạng vốn có của tính phổ quát. Sự đa dạng này không còn bị che lấp bởi tính đơn nhất của Geist, mà được giải phóng và thể hiện một cách sinh động trong thực tại đời sống. Điều này đòi hỏi chúng ta phải suy ngẫm một cách nghiêm túc về ý nghĩa của tính đa phương và tính đa số, như là cốt lõi của tư tưởng duy vật biện chứng.</p>
+<p>Chủ nghĩa duy vật biện chứng, với nền tảng là sự thừa nhận tính đa nguyên và sự đa dạng của thế giới hiện thực, không thể sụp đổ và trở thành một dạng thức của chủ nghĩa duy tâm. Bởi một khi điều đó xảy ra, nó sẽ rơi vào cái bẫy của phép biện chứng thần - người, nơi mà tính nhị nguyên giữa thần thánh và con người trở nên cân xứng và đối đẳng. Khi ấy, mối quan hệ giữa con người và thế giới, giữa tư duy và hiện thực sẽ rơi vào sự đồng nhất thần bí, mất đi tính chất biện chứng và duy vật của nó.</p>
+<p>Trong tư tưởng của K. Marx và Ph. Engels, sự phát triển không ngừng của lực lượng sản xuất trong lòng xã hội tư bản chủ nghĩa đã tạo ra những tiền đề vật chất tất yếu cho sự ra đời của một hình thái xã hội mới - xã hội cộng sản chủ nghĩa. Đây là một xã hội không còn sự tồn tại của các giai cấp đối kháng và bộ máy nhà nước chuyên chính, nơi con người được giải phóng khỏi sự thống trị của chế độ chiếm hữu tư nhân về tư liệu sản xuất, trở thành những cá nhân tự do và bình đẳng về mọi mặt. Tuy nhiên, quá trình chuyển hóa từ chủ nghĩa tư bản sang chủ nghĩa cộng sản không thể diễn ra một cách tự phát và tự động. Nó đòi hỏi sự đấu tranh bền bỉ và kiên cường của quần chúng lao động, dưới sự lãnh đạo của đảng cộng sản - đội tiên phong của giai cấp vô sản.</p>
+<p>Cũng trong quá trình đấu tranh gian khổ và lâu dài này, ý thức hệ cộng sản sẽ dần dần thấm sâu và lan tỏa trong quần chúng nhân dân lao động. Nó sẽ biến họ từ một khối người manh mún, thiếu tổ chức, thành một cộng đồng đoàn kết, có tổ chức chặt chẽ, với ý thức giai cấp sâu sắc và ý chí cách mạng kiên định. Đây chính là quá trình cộng đồng hóa con người mà chủ nghĩa duy vật biện chứng hướng tới - quá trình hình thành một cộng đồng người lao động mới, tự giác và tích cực xây dựng xã hội mới. Tuy nhiên, cũng cần nhấn mạnh rằng sự cộng đồng hóa này tuyệt nhiên không phải là sự hòa tan cá nhân vào tập thể một cách máy móc và tẻ nhạt. Trái lại, nó chính là điều kiện tiên quyết để mỗi cá nhân có thể phát triển một cách toàn diện, tự do và sáng tạo nhất. Trong cộng đồng tương lai, mỗi thành viên đều có cơ hội cống hiến hết khả năng của bản thân, đồng thời được hưởng thụ mọi thành quả lao động theo nhu cầu. Sự phát triển tự do và đầy đủ của mỗi cá nhân sẽ trở thành điều kiện cho sự phát triển tự do và phồn vinh của toàn thể cộng đồng. Ta có thể nhìn nhận rằng xã hội cộng sản chủ nghĩa là một xã hội không còn sự đối lập giữa cá nhân và tập thể, giữa lợi ích riêng và lợi ích chung. Trong xã hội ấy, sự phát triển của mỗi cá nhân đều hài hòa và gắn kết mật thiết với sự tiến bộ của cả cộng đồng. Đồng thời, lao động từ một gánh nặng, một nghĩa vụ bắt buộc, sẽ trở thành nhu cầu sống còn bậc nhất, trở thành sự nghiệp tự giác, sáng tạo và cao quý của tất cả mọi người. Mỗi cá nhân đều tìm thấy niềm vui, hạnh phúc và sự thỏa mãn chân chính trong quá trình lao động cống hiến vì lợi ích chung. Ẩn bớt</p> <div class="mt-24"> <div class="grid grid-cols-2 gap-1.5 sm:gap-3"> <a href="doll" class="group relative flex flex-nowrap rounded-lg border border-black/15 px-4 py-3 pl-10 no-underline transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black focus-visible:bg-black/5 focus-visible:text-black dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:bg-white/5 dark:focus-visible:text-white"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="absolute left-2 top-1/2 size-5 -translate-y-1/2 fill-none stroke-current stroke-2"> <line x1="5" y1="12" x2="19" y2="12" class="translate-x-3 scale-x-0 transition-transform duration-300 ease-in-out group-hover:translate-x-0 group-hover:scale-x-100 group-focus-visible:translate-x-0 group-focus-visible:scale-x-100"></line> <polyline points="12 5 5 12 12 19" class="translate-x-1 transition-transform duration-300 ease-in-out group-hover:translate-x-0 group-focus-visible:translate-x-0"></polyline> </svg> <div class="flex items-center text-sm">Doll</div> </a> <a href="yuri" class="group relative flex flex-grow flex-row-reverse flex-nowrap rounded-lg border border-black/15 px-4 py-4 pr-10 no-underline transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black focus-visible:bg-black/5 focus-visible:text-black dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:bg-white/5 dark:focus-visible:text-white"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="absolute right-2 top-1/2 size-5 -translate-y-1/2 fill-none stroke-current stroke-2"> <line x1="5" y1="12" x2="19" y2="12" class="translate-x-3 scale-x-0 transition-transform duration-300 ease-in-out group-hover:translate-x-0 group-hover:scale-x-100 group-focus-visible:translate-x-0 group-focus-visible:scale-x-100"></line> <polyline points="12 5 19 12 12 19" class="-translate-x-1 transition-transform duration-300 ease-in-out group-hover:translate-x-0 group-focus-visible:translate-x-0"></polyline> </svg> <div class="flex items-center text-sm">Bàn Về Thể Loại Yuri</div> </a> </div> </div> <div class="mt-24"> <div class="giscus"></div> <script data-astro-rerun src="https://giscus.app/client.js" data-repo="WhiteSnow00/WHA" data-repo-id="R_kgDOMfSw0w" data-category="General" data-category-id="DIC_kwDOMfSw084ChZtc" data-mapping="url" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script> </div> </article> </div>  </main> <footer class="animate"> <div class="mx-auto max-w-screen-sm px-3"> <div class="relative"> <div class="absolute -top-12 right-0"> <button id="back-to-top" class="group relative flex w-fit flex-nowrap rounded border border-black/15 py-1.5 pl-8 pr-3 transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black focus-visible:bg-black/5 focus-visible:text-black dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:bg-white/5 dark:focus-visible:text-white"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="absolute left-2 top-1/2 size-4 -translate-y-1/2 rotate-90 fill-none stroke-current stroke-2"> <line x1="5" y1="12" x2="19" y2="12" class="translate-x-2 scale-x-0 transition-transform duration-300 ease-in-out group-hover:translate-x-0 group-hover:scale-x-100 group-focus-visible:translate-x-0 group-focus-visible:scale-x-100"></line> <polyline points="12 5 5 12 12 19" class="translate-x-1 transition-transform duration-300 ease-in-out group-hover:translate-x-0 group-focus-visible:translate-x-0"></polyline> </svg> <div class="text-sm">Back to top</div> </button> </div> </div> <div class="flex items-center justify-between"> <div class="flex flex-col items-start justify-center"> <p>
+&copy; 2024 • WHA </p> </div> <div class="flex flex-wrap items-center gap-1.5"> <button id="light-theme-button" aria-label="Light theme" class="group flex size-9 items-center justify-center rounded border border-black/15 hover:bg-black/5 focus-visible:bg-black/5 dark:border-white/20 dark:hover:bg-white/5 dark:focus-visible:bg-white/5"> <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="transition-colors duration-300 ease-in-out group-hover:animate-pulse group-hover:stroke-black group-focus-visible:animate-pulse group-focus-visible:stroke-black group-hover:dark:stroke-white dark:group-focus-visible:stroke-white"> <circle cx="12" cy="12" r="5"></circle> <line x1="12" y1="1" x2="12" y2="3"></line> <line x1="12" y1="21" x2="12" y2="23"></line> <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line> <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line> <line x1="1" y1="12" x2="3" y2="12"></line> <line x1="21" y1="12" x2="23" y2="12"></line> <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line> <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line> </svg> </button> <button id="dark-theme-button" aria-label="Dark theme" class="group flex size-9 items-center justify-center rounded border border-black/15 hover:bg-black/5 focus-visible:bg-black/5 dark:border-white/20 dark:hover:bg-white/5 dark:focus-visible:bg-white/5"> <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="transition-colors duration-300 ease-in-out group-hover:animate-pulse group-hover:stroke-black group-focus-visible:animate-pulse group-focus-visible:stroke-black group-hover:dark:stroke-white dark:group-focus-visible:stroke-white"> <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path> </svg> </button> <button id="system-theme-button" aria-label="System theme" class="group flex size-9 items-center justify-center rounded border border-black/15 hover:bg-black/5 focus-visible:bg-black/5 dark:border-white/20 dark:hover:bg-white/5 dark:focus-visible:bg-white/5"> <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="transition-colors duration-300 ease-in-out group-hover:animate-pulse group-hover:stroke-black group-focus-visible:animate-pulse group-focus-visible:stroke-black group-hover:dark:stroke-white dark:group-focus-visible:stroke-white"> <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect> <line x1="8" y1="21" x2="16" y2="21"></line> <line x1="12" y1="17" x2="12" y2="21"></line> </svg> </button> </div> </div> </div> </footer> <div id="backdrop" class="bg-[rgba(0, 0, 0, 0.5] invisible fixed left-0 top-0 z-50 flex h-screen w-full justify-center p-6 backdrop-blur-sm" data-astro-transition-persist="astro-t6dxx5el-2"> <div id="pagefind-container" class="m-0 flex h-fit max-h-[80%] w-full max-w-screen-sm flex-col overflow-auto rounded border border-black/15 bg-neutral-100 p-2 px-4 py-3 shadow-lg dark:border-white/20 dark:bg-neutral-900"> <div id="search" class="pagefind-ui pagefind-init" data-pagefind-ui data-bundle-path="/pagefind/" data-ui-options="{&#34;showImages&#34;:false,&#34;excerptLength&#34;:15,&#34;resetStyles&#34;:false}"></div>  <div class="mr-2 pb-1 pt-4 text-right text-xs dark:prose-invert">
+Press <span class="prose text-xs dark:prose-invert"><kbd class="">Esc</kbd></span> or click anywhere to close
+</div> </div> </div> <script>
+  const magnifyingGlass = document.getElementById("magnifying-glass");
+  const backdrop = document.getElementById("backdrop");
+
+  function openPagefind() {
+    const searchDiv = document.getElementById("search");
+    const search = searchDiv.querySelector("input");
+    setTimeout(() => {
+      search.focus();
+    }, 0);
+    backdrop?.classList.remove("invisible");
+    backdrop?.classList.add("visible");
+  }
+
+  function closePagefind() {
+    const search = document.getElementById("search");
+    search.value = "";
+    backdrop?.classList.remove("visible");
+    backdrop?.classList.add("invisible");
+  }
+
+  // open pagefind
+  magnifyingGlass?.addEventListener("click", () => {
+    openPagefind();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "/") {
+      e.preventDefault();
+      openPagefind();
+    } else if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+      e.preventDefault();
+      openPagefind();
+    }
+  });
+
+  // close pagefind
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" || e.code === 27) {
+      closePagefind();
+    }
+  });
+
+  backdrop?.addEventListener("click", (event) => {
+    if (!event.target.closest("#pagefind-container")) {
+      closePagefind();
+    }
+  });
+
+  // prevent form submission
+  const form = document.getElementById("form");
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+  });
+</script>  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Bản Thể Luận Về Đau Khổ","description":"Bản thể Luận","keywords":["blog","posts","articles","programming","software","development","web","tech","technology"],"author":{"@type":"Person","name":"Ayaya","url":"http://localhost:3000"},"datePublished":"2024-08-01"}</script> </body></html>
