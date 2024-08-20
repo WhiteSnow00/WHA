@@ -8,7 +8,7 @@ import Link from "@components/Link.astro";
 import { getCollection } from "astro:content";
 import TriangleBackground from '../components/TriangleBackground.astro';
 import  ScrollProcess from '../components/Scroll-process.astro';
-import * as SmoothScroll from 'smooth-scroll';
+
 
 const blog = (await getCollection("blog"))
   .filter((post) => !post.data.draft)
