@@ -20,27 +20,14 @@ const { title, description } = Astro.props;
   <head>
     <Head title={`${title} | ${SITE.TITLE}`} description={description} />
   </head>
-  <body>
+  <body class="relative">
     <Header />
-    <main>
-      <div class="custom-grid gap-2">
-        <!-- Empty div to fill first column  -->
-        <div></div>
-        <div class="col-span-1">
-          <slot />
-        </div>
-        <Sidebar />
-      </div>
+    <Sidebar />
+    <main class="relative">
+      <slot />
     </main>
     <Footer />
     <PageFind />
     <slot name="scripts" />
-    <style>
-      .custom-grid {
-        display: grid;
-        grid-template-columns: 0.1fr 0.8fr 0.1fr;
-        gap: 5px;
-      }
-    </style>
   </body>
 </html>

@@ -1,7 +1,13 @@
 ---
 import BackToTop from "./BackToTop.astro";
+import Container from "./Container.astro";
 ---
 
-<div class="w-30 right-3 lg:sticky lg:top-20 lg:pb-16">
-  <BackToTop />
-</div>
+<header
+  transition:persist=""
+  class="fixed left-[90%] right-0 top-[10%] h-[90vh] max-h-screen w-[25%]"
+>
+  <div class="h-full">
+    <BackToTop />
+  </div>
+</header>
