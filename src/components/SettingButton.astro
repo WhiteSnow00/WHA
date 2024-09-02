@@ -1,0 +1,19 @@
+---
+import SettingPopup from "./SettingPopup.astro";
+import { Settings } from "lucide-astro";
+---
+
+<div
+  id="setting_btn"
+  class="group absolute top-[90%] flex w-fit flex-nowrap rounded border
+  border-black/15 py-1.5 pl-8 pr-3 transition-opacity
+  duration-500 ease-in-out hover:bg-black/5 hover:text-black
+  focus-visible:bg-black/5 focus-visible:text-black dark:border-white/20
+  dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:bg-white/5
+  dark:focus-visible:text-white"
+>
+  <Settings
+    class="absolute left-2 top-1/4 size-4 transition-transform duration-300 ease-in-out group-hover:-rotate-90"
+  />
+  <div class="text-sm">Setting</div>
+</div>
