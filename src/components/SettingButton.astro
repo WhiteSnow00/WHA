@@ -3,8 +3,8 @@ import SettingPopup from "./SettingPopup.astro";
 import { Settings } from "lucide-astro";
 ---
 
-<div
-  id="setting_btn"
+<button
+  id="setting-btn"
   class="group absolute top-[90%] flex w-fit flex-nowrap rounded border
   border-black/15 py-1.5 pl-8 pr-3 transition-opacity
   duration-500 ease-in-out hover:bg-black/5 hover:text-black
@@ -16,4 +16,21 @@ import { Settings } from "lucide-astro";
     class="absolute left-2 top-1/4 size-4 transition-transform duration-300 ease-in-out group-hover:-rotate-90"
   />
   <div class="text-sm">Setting</div>
-</div>
+</button>
+
+<script>
+  const settingBtn = document.getElementById("setting-btn");
+  const modal = document.getElementById("setting-popup");
+
+  function SetModalVisibilities() {
+    console.log(modal);
+    const visible = modal?.classList.contains("visible");
+    modal?.classList.remove(visible ? "visible" : "invisible");
+    modal?.classList.add(visible ? "invisible" : "visible");
+  }
+
+  settingBtn?.addEventListener("click", () => {
+    console.log("Setting Clicked");
+    SetModalVisibilities();
+  });
+</script>
