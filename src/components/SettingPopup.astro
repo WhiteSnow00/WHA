@@ -1,5 +1,7 @@
 ---
+import HomeButton from "./Buttons/HomeButton.astro";
 import DarkModeControl from "./DarkModeControl.astro";
+import ButtonAndDescriptionWrapper from "./Buttons/ButtonAndDescriptionWrapper.astro";
 ---
 
 <div
@@ -12,13 +14,17 @@ import DarkModeControl from "./DarkModeControl.astro";
   align-bottom transition-opacity duration-500
   ease-in-out dark:border-white/20 dark:bg-neutral-900"
 >
-  <!-- Functionalities goes here -->
   <div id="nav-section" class="flex flex-col items-center justify-center gap-2">
     <div id="nav-section-text" class="w-full text-left text-lg font-bold">
       Navigation
     </div>
     <hr class="h-1 w-full border-black/20 dark:border-white/20" />
-    <div class="flex w-full flex-col items-center justify-center gap-4"></div>
+    <div class="flex w-full flex-col items-center justify-center gap-4">
+      <!-- Functionalities goes here -->
+      <ButtonAndDescriptionWrapper buttonDecription="Go To Home">
+        <HomeButton />
+      </ButtonAndDescriptionWrapper>
+    </div>
   </div>
   <div
     id="settings-section"
@@ -29,9 +35,12 @@ import DarkModeControl from "./DarkModeControl.astro";
     </div>
     <hr class="h-1 w-full border-black/20 dark:border-white/20" />
     <div class="flex w-full flex-col items-center justify-center gap-4">
-      <DarkModeControl />
+      <ButtonAndDescriptionWrapper buttonDecription="Dark Mode">
+        <DarkModeControl />
+      </ButtonAndDescriptionWrapper>
     </div>
   </div>
 </div>
+
 <script></script>
 <style></style>

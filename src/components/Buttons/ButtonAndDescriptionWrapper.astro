@@ -1,0 +1,16 @@
+---
+interface Props {
+  buttonDecription: string;
+}
+
+const { buttonDecription } = Astro.props;
+
+const fullString = buttonDecription + " :";
+---
+
+<div class="flex w-full flex-wrap items-center gap-10">
+  <div class="w-fit text-left text-base font-semibold">
+    {fullString}
+  </div>
+  <slot />
+</div>
