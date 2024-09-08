@@ -5,15 +5,33 @@ import DarkModeControl from "./DarkModeControl.astro";
 <div
   id="setting-popup"
   class="dark:bg group invisible relative
-  flex h-[70%] w-96 border-spacing-2 flex-row-reverse
-  justify-center rounded-md
+  flex h-[70%] w-96 border-spacing-2 flex-col justify-center
+  gap-6 rounded-md
   border-2 border-zinc-950 bg-white
   py-1.5 pl-8 pr-3
   align-bottom transition-opacity duration-500
   ease-in-out dark:border-white/20 dark:bg-neutral-900"
 >
   <!-- Functionalities goes here -->
-  <DarkModeControl />
+  <div id="nav-section" class="flex flex-col items-center justify-center gap-2">
+    <div id="nav-section-text" class="w-full text-left text-lg font-bold">
+      Navigation
+    </div>
+    <hr class="h-1 w-full border-black/20 dark:border-white/20" />
+    <div class="flex w-full flex-col items-center justify-center gap-4"></div>
+  </div>
+  <div
+    id="settings-section"
+    class="flex flex-col items-center justify-center gap-2"
+  >
+    <div id="settings-section-text" class="w-full text-left text-lg font-bold">
+      Settings
+    </div>
+    <hr class="h-1 w-full border-black/20 dark:border-white/20" />
+    <div class="flex w-full flex-col items-center justify-center gap-4">
+      <DarkModeControl />
+    </div>
+  </div>
 </div>
 <script></script>
 <style></style>
