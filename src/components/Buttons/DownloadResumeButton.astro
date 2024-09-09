@@ -1,0 +1,16 @@
+---
+import { Download } from "lucide-astro";
+import ResumeHRef from "@lib/References/DownloadResumeHref";
+---
+
+<a href={ResumeHRef} rel="nofollow" download="file">
+  <button
+    id="down-resume-btn"
+    aria-label="System theme"
+    class="group flex size-9 items-center justify-center rounded border border-black/15 hover:bg-black/5 focus-visible:bg-black/5 dark:border-white/20 dark:hover:bg-white/5 dark:focus-visible:bg-white/5"
+  >
+    <Download
+      class="transition-colors duration-300 ease-in-out group-hover:animate-pulse group-hover:stroke-black group-focus-visible:animate-pulse group-focus-visible:stroke-black group-hover:dark:stroke-white dark:group-focus-visible:stroke-white"
+    />
+  </button>
+</a>
