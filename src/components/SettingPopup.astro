@@ -4,11 +4,12 @@ import DarkModeControl from "./DarkModeControl.astro";
 import ButtonAndDescriptionWrapper from "./Buttons/ButtonAndDescriptionWrapper.astro";
 import DownloadResumeButton from "./Buttons/DownloadResumeButton.astro";
 import MyInfoButton from "./Buttons/MyInfoButton.astro";
+import ShowProgressButton from "./Buttons/ShowProgressButton.astro";
 ---
 
 <div
   id="setting-popup"
-  class="dark:bg group invisible relative
+  class="group relative
   flex h-[70%] w-96 border-spacing-2 flex-col justify-center
   gap-6 rounded-md
   border-2 border-zinc-950 bg-white
@@ -45,6 +46,9 @@ import MyInfoButton from "./Buttons/MyInfoButton.astro";
     <div class="flex w-full flex-col items-center justify-center gap-4">
       <ButtonAndDescriptionWrapper buttonDecription="Dark Mode">
         <DarkModeControl />
+      </ButtonAndDescriptionWrapper>
+      <ButtonAndDescriptionWrapper buttonDecription="Show Progress Bar">
+        <ShowProgressButton />
       </ButtonAndDescriptionWrapper>
     </div>
   </div>
