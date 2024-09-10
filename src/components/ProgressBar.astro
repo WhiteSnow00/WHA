@@ -1,0 +1,40 @@
+---
+
+---
+
+<div
+  id="progress-bar-container"
+  class="relative top-2 flex h-1 w-full flex-row justify-center bg-transparent"
+>
+  <div
+    id="progress-bar"
+    class="relative h-1
+    w-[1%]
+    bg-green-400
+    transition-transform
+    duration-75
+    dark:bg-green-700"
+  >
+  </div>
+</div>
+
+<script is:inline>
+  function UpdateProgress(progress) {
+    const progressBar = document.getElementById("progress-bar");
+    progressBar.style.width = progress + "%";
+    return;
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("scroll", () => {
+      const progress =
+        (document.documentElement.scrollTop /
+          (document.documentElement.scrollHeight - window.innerHeight)) *
+        100;
+      console.log(progress);
+      console.log(document.documentElement.scrollTop);
+      UpdateProgress(progress);
+    });
+  });
+</script>
+<style></style>

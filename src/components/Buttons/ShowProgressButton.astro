@@ -3,12 +3,28 @@
 ---
 
 <label class="group relative inline-block h-[38px] w-[64px]">
-  <input class="group h-0 w-0 opacity-0" type="checkbox" />
+  <input
+    id="is-progress-shown"
+    class="group h-0 w-0 opacity-0"
+    type="checkbox"
+    onchange="ChangeProgressBarVisibility(this.checked)"
+    checked
+  />
   <span
     class="slider round group border-2 border-black bg-white after:bg-black dark:border-white dark:bg-black after:dark:bg-white"
   ></span>
 </label>
 
+<script is:inline>
+  const progressBar = document.getElementById("progress-bar-container");
+  function ChangeProgressBarVisibility(visisle) {
+    if (visisle) {
+      progressBar?.classList.remove("invisible");
+      return;
+    }
+    progressBar?.classList.add("invisible");
+  }
+</script>
 <style>
   /* The slider */
 
