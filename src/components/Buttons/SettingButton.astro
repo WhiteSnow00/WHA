@@ -18,15 +18,14 @@ import { Settings } from "lucide-astro";
   <div class="text-sm">Setting</div>
 </button>
 
-<script>
+<script is:inline>
   const settingBtn = document.getElementById("setting-btn");
   const modal = document.getElementById("setting-popup");
 
   function SetModalVisibilities() {
-    console.log(modal);
-    const visible = modal?.classList.contains("visible");
-    modal?.classList.remove(visible ? "visible" : "invisible");
-    modal?.classList.add(visible ? "invisible" : "visible");
+    const visible = modal?.classList.contains("opacity-100");
+    modal?.classList.remove(visible ? "opacity-100" : "opacity-0");
+    modal?.classList.add(visible ? "opacity-0" : "opacity-100");
   }
 
   settingBtn?.addEventListener("click", () => {
