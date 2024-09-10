@@ -24,8 +24,8 @@ import { Settings } from "lucide-astro";
 
   function SetModalVisibilities() {
     const visible = modal?.classList.contains("opacity-100");
-    modal?.classList.remove(visible ? "opacity-100" : "opacity-0");
-    modal?.classList.add(visible ? "opacity-0" : "opacity-100");
+    modal?.classList.remove(visible ? "opacity-100" : ("opacity-0", "disable"));
+    modal?.classList.add(visible ? ("opacity-0", "disable") : "opacity-100");
   }
 
   settingBtn?.addEventListener("click", () => {
