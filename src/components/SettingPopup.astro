@@ -8,23 +8,26 @@ import ShowProgressButton from "./Buttons/ShowProgressButton.astro";
 import GoToBlogButton from "./Buttons/GoToBlogButton.astro";
 ---
 
-<span
+<div
   id="setting-popup"
   class="modal-disable group fixed bottom-[30%] left-[75%]
   z-10
-  flex h-fit max-h-[80%] w-[20%] max-w-screen-sm border-spacing-2 flex-col justify-center gap-6
+  flex max-h-[80%] w-[20%] max-w-screen-sm border-spacing-2 flex-col justify-around gap-6
   rounded-md border-2
   border-zinc-950 bg-white py-1.5
   pl-8 pr-3 align-bottom
   transition-opacity duration-500
   ease-in-out dark:border-white/50 dark:bg-black"
 >
-  <div id="nav-section" class="flex flex-col items-center justify-center gap-2">
+  <div
+    id="nav-section"
+    class="mt-6 flex flex-col items-center justify-around gap-5"
+  >
     <div id="nav-section-text" class="w-full text-left text-lg font-bold">
       Navigation
     </div>
     <hr class="h-1 w-full border-black/20 dark:border-white/20" />
-    <div class="flex w-full flex-col items-center justify-center gap-4">
+    <div class="flex w-full flex-col items-center justify-around gap-5">
       <!-- Functionalities goes here -->
       <ButtonAndDescriptionWrapper buttonDecription="Home">
         <HomeButton />
@@ -42,13 +45,13 @@ import GoToBlogButton from "./Buttons/GoToBlogButton.astro";
   </div>
   <div
     id="settings-section"
-    class="flex flex-col items-center justify-center gap-2"
+    class="mb-6 flex flex-col items-center justify-around gap-5"
   >
     <div id="settings-section-text" class="w-full text-left text-lg font-bold">
       Settings
     </div>
     <hr class="h-1 w-full border-black/20 dark:border-white/20" />
-    <div class="flex w-full flex-col items-center justify-center gap-4">
+    <div class="flex w-full flex-col items-center justify-around gap-5">
       <ButtonAndDescriptionWrapper buttonDecription="Dark Mode">
         <DarkModeControl />
       </ButtonAndDescriptionWrapper>
@@ -57,4 +60,4 @@ import GoToBlogButton from "./Buttons/GoToBlogButton.astro";
       </ButtonAndDescriptionWrapper>
     </div>
   </div>
-</span>
+</div>
