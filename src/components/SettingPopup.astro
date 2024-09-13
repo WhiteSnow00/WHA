@@ -8,15 +8,16 @@ import ShowProgressButton from "./Buttons/ShowProgressButton.astro";
 import GoToBlogButton from "./Buttons/GoToBlogButton.astro";
 ---
 
-<div
+<span
   id="setting-popup"
-  class="disable group relative flex
-  h-[70%] w-96 border-spacing-2 flex-col justify-center gap-6
+  class="modal-disable group fixed bottom-[30%] left-[75%]
+  z-10
+  flex h-fit max-h-[80%] w-[20%] max-w-screen-sm border-spacing-2 flex-col justify-center gap-6
   rounded-md border-2
   border-zinc-950 bg-white py-1.5
   pl-8 pr-3 align-bottom
-  opacity-0 transition-opacity duration-500
-  ease-in-out dark:border-white/20 dark:bg-neutral-900"
+  transition-opacity duration-500
+  ease-in-out dark:border-white/50 dark:bg-black"
 >
   <div id="nav-section" class="flex flex-col items-center justify-center gap-2">
     <div id="nav-section-text" class="w-full text-left text-lg font-bold">
@@ -56,9 +57,4 @@ import GoToBlogButton from "./Buttons/GoToBlogButton.astro";
       </ButtonAndDescriptionWrapper>
     </div>
   </div>
-</div>
-<style>
-  .disable {
-    pointer-events: none;
-  }
-</style>
+</span>

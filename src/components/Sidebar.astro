@@ -7,14 +7,13 @@ import SettingPopup from "./SettingPopup.astro";
 
 <header
   transition:persist
-  class="fixed left-[85%] top-[10%] h-[90vh] max-h-screen w-[15%] bg-transparent"
+  class="fixed left-[90%] top-[10%] z-10 h-[90vh] max-h-screen w-[15%] bg-transparent dark:bg-transparent"
 >
   <div
     id="sidebar-container"
-    class="justify-items-left mx-10 flex
-    h-full flex-col place-items-end justify-evenly bg-transparent text-center align-bottom"
+    class="mb-64 flex h-[95%]
+    flex-col place-items-center justify-end justify-items-center gap-12 bg-transparent text-center align-bottom dark:bg-transparent"
   >
-    <SettingPopup />
     <SettingButton />
     <BackToTop />
   </div>

@@ -6,6 +6,7 @@ import Footer from "@components/Footer.astro";
 import PageFind from "@components/PageFind.astro";
 import { SITE } from "@consts";
 import Sidebar from "@components/Sidebar.astro";
+import SettingPopup from "@components/SettingPopup.astro";
 
 type Props = {
   title: string;
@@ -23,6 +24,10 @@ const { title, description } = Astro.props;
   <body class="relative">
     <Header />
     <Sidebar />
+    <div id="modal-container" class="fixed z-50 flex">
+      <SettingPopup />
+    </div>
+
     <main class="relative">
       <slot />
     </main>
