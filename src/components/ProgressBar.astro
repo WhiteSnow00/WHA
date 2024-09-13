@@ -4,7 +4,7 @@
 
 <div
   id="progress-bar-container"
-  class="relative top-2 flex h-1 w-full flex-row justify-center bg-transparent"
+  class="relative top-2 flex h-1 w-full flex-row justify-center bg-transparent transition-all duration-500"
 >
   <div
     id="progress-bar"
@@ -31,10 +31,17 @@
         (document.documentElement.scrollTop /
           (document.documentElement.scrollHeight - window.innerHeight)) *
         100;
-      console.log(progress);
-      console.log(document.documentElement.scrollTop);
       UpdateProgress(progress);
     });
   });
 </script>
-<style></style>
+<style>
+  .enable {
+    visibility: visible;
+    opacity: 100;
+  }
+  .disable {
+    visibility: hidden;
+    opacity: 0;
+  }
+</style>
