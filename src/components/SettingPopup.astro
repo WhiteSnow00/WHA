@@ -5,6 +5,7 @@ import ButtonAndDescriptionWrapper from "./Buttons/ButtonAndDescriptionWrapper.a
 import DownloadResumeButton from "./Buttons/DownloadResumeButton.astro";
 import MyInfoButton from "./Buttons/MyInfoButton.astro";
 import ShowProgressButton from "./Buttons/ShowProgressButton.astro";
+import GoToBlogButton from "./Buttons/GoToBlogButton.astro";
 ---
 
 <div
@@ -24,14 +25,17 @@ import ShowProgressButton from "./Buttons/ShowProgressButton.astro";
     <hr class="h-1 w-full border-black/20 dark:border-white/20" />
     <div class="flex w-full flex-col items-center justify-center gap-4">
       <!-- Functionalities goes here -->
-      <ButtonAndDescriptionWrapper buttonDecription="Go To Home">
+      <ButtonAndDescriptionWrapper buttonDecription="Home">
         <HomeButton />
       </ButtonAndDescriptionWrapper>
-      <ButtonAndDescriptionWrapper buttonDecription="Download My Resume">
-        <DownloadResumeButton />
+      <ButtonAndDescriptionWrapper buttonDecription="Blogs">
+        <GoToBlogButton />
       </ButtonAndDescriptionWrapper>
       <ButtonAndDescriptionWrapper buttonDecription="My Info">
         <MyInfoButton />
+      </ButtonAndDescriptionWrapper>
+      <ButtonAndDescriptionWrapper buttonDecription="Download My Resume">
+        <DownloadResumeButton />
       </ButtonAndDescriptionWrapper>
     </div>
   </div>
