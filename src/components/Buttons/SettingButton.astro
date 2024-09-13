@@ -16,23 +16,9 @@ import { Settings } from "lucide-astro";
   const settingBtn = document.getElementById("setting-btn");
   let settingModal = document.getElementById("setting-popup");
 
-  function SetModalVisibilities() {
-    const visible = settingModal?.classList.contains("modal-enable");
-    const others = document.getElementsByClassName("modal-enable");
-    for (var i = 0; i < others.length; i++) {
-      if (others[i] == settingModal) continue;
-      console.log(others[i] == settingModal);
-
-      //disable every others modal
-      others[i]?.classList.remove("modal-enable");
-      others[i]?.classList.add("modal-disable");
-    }
-    settingModal?.classList.remove(visible ? "modal-enable" : "modal-disable");
-    settingModal?.classList.add(!visible ? "modal-enable" : "modal-disable");
-  }
   settingBtn?.addEventListener("click", () => {
     console.log("Setting Clicked");
     settingModal = document.getElementById("setting-popup");
-    SetModalVisibilities();
+    SetModalVisibilities(settingModal);
   });
 </script>

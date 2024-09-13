@@ -14,15 +14,9 @@ import { Music4 } from "lucide-astro";
     const musicBtn = document.getElementById("music-btn");
     let musicModal = document.getElementById("music-gadget");
 
-    function SetModalVisibilities() {
-      const visible = musicModal?.classList.contains("modal-enable");
-      musicModal?.classList.remove(visible ? "modal-enable" : "modal-disable");
-      musicModal?.classList.add(!visible ? "modal-enable" : "modal-disable");
-    }
-
     musicBtn?.addEventListener("click", () => {
       musicModal = document.getElementById("music-gadget");
-      SetModalVisibilities();
+      SetModalVisibilities(musicModal);
     });
   </script>
 </button>
