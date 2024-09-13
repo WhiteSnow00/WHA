@@ -2,7 +2,7 @@
 import BackToTop from "./Buttons/BackToTop.astro";
 import Container from "./Container.astro";
 import SettingButton from "./Buttons/SettingButton.astro";
-import SettingPopup from "./SettingPopup.astro";
+import MusicButton from "./Buttons/MusicButton.astro";
 ---
 
 <header
@@ -14,6 +14,7 @@ import SettingPopup from "./SettingPopup.astro";
     class="mb-64 flex h-[95%]
     flex-col place-items-center justify-end justify-items-center gap-12 bg-transparent text-center align-bottom dark:bg-transparent"
   >
+    <MusicButton />
     <SettingButton />
     <BackToTop />
   </div>

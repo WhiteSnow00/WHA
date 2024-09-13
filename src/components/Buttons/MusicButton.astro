@@ -1,0 +1,28 @@
+---
+import { Music4 } from "lucide-astro";
+---
+
+<button
+  id="music-btn"
+  class="group flex size-12 items-center justify-center rounded-full border border-black/15 hover:bg-black/5 focus-visible:bg-black/5 dark:border-white/20 dark:hover:bg-white/5 dark:focus-visible:bg-white/5"
+>
+  <Music4
+    class="size-4 transition-colors duration-300 ease-in-out group-hover:animate-pulse group-hover:stroke-black group-focus-visible:animate-pulse group-focus-visible:stroke-black group-hover:dark:stroke-white dark:group-focus-visible:stroke-white"
+  />
+
+  <script is:inline>
+    const musicBtn = document.getElementById("music-btn");
+    let musicModal = document.getElementById("music-gadget");
+
+    function SetModalVisibilities() {
+      const visible = musicModal?.classList.contains("modal-enable");
+      musicModal?.classList.remove(visible ? "modal-enable" : "modal-disable");
+      musicModal?.classList.add(!visible ? "modal-enable" : "modal-disable");
+    }
+
+    musicBtn?.addEventListener("click", () => {
+      musicModal = document.getElementById("music-gadget");
+      SetModalVisibilities();
+    });
+  </script>
+</button>
