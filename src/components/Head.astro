@@ -229,18 +229,18 @@ const { title, description, image = "/og.jpg" } = Astro.props;
     }
   }
   function SetModalVisibilities(modal) {
-    const visible = settingModal?.classList.contains("modal-enable");
+    const visible = modal?.classList.contains("modal-enable");
     const others = document.getElementsByClassName("modal-enable");
     for (var i = 0; i < others.length; i++) {
-      if (others[i] == settingModal) continue;
+      if (others[i] == modal) continue;
       console.log(others[i] == settingModal);
 
       //disable every others modal
       others[i]?.classList.remove("modal-enable");
       others[i]?.classList.add("modal-disable");
     }
-    settingModal?.classList.remove(visible ? "modal-enable" : "modal-disable");
-    settingModal?.classList.add(!visible ? "modal-enable" : "modal-disable");
+    modal?.classList.remove(visible ? "modal-enable" : "modal-disable");
+    modal?.classList.add(!visible ? "modal-enable" : "modal-disable");
   }
 
   const setGiscusTheme = () => {
