@@ -1,8 +1,11 @@
 ---
-import ToggleButton from "./Template/ToggleButton.astro";
+import ToggleButtonAndDescriptionWrapper from "./Template/ToggleButtonAndDescriptionWrapper.astro";
 ---
 
-<ToggleButton idProps="show-progress-bar-btn" />
+<ToggleButtonAndDescriptionWrapper
+  id="show-progress-bar-btn"
+  buttonDescription="Show Progress"
+/>
 
 <script is:inline>
   const toggle = document.getElementById("show-progress-bar-btn");

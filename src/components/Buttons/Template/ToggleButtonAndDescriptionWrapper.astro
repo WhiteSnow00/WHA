@@ -1,4 +1,5 @@
 ---
+import ToggleButton from "./ToggleButton.astro";
 interface Props {
   buttonDescription: string;
   id: string;
@@ -7,13 +8,11 @@ interface Props {
 const { buttonDescription, id } = Astro.props;
 ---
 
-<button
-  id={id}
-  aria-label="System theme"
+<div
   class="group grid h-9 w-full grid-cols-3 place-items-start items-center justify-start bg-transparent pl-2"
 >
-  <slot name="icon" />
-  <div class="col-span-2 text-left text-base font-semibold">
+  <ToggleButton idProps={id} />
+  <div class="col-span-2 w-fit text-left text-base font-semibold">
     {buttonDescription}
   </div>
-</button>
+</div>

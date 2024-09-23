@@ -12,7 +12,7 @@ import GoToBlogButton from "./Buttons/GoToBlogButton.astro";
   id="setting-popup"
   class="modal-disable group fixed bottom-[30%] left-[75%]
   z-10
-  flex max-h-[80%] w-[20%] max-w-screen-sm border-spacing-2 flex-col justify-around gap-6
+  flex h-fit w-[20%] min-w-fit border-spacing-2 flex-col justify-around gap-6
   rounded-md border-2
   border-zinc-950 bg-white py-1.5
   pl-8 pr-3 align-bottom
@@ -29,18 +29,10 @@ import GoToBlogButton from "./Buttons/GoToBlogButton.astro";
     <hr class="h-1 w-full border-black/20 dark:border-white/20" />
     <div class="flex w-full flex-col items-center justify-around gap-5">
       <!-- Functionalities goes here -->
-      <ButtonAndDescriptionWrapper buttonDecription="Home">
-        <HomeButton />
-      </ButtonAndDescriptionWrapper>
-      <ButtonAndDescriptionWrapper buttonDecription="Blogs">
-        <GoToBlogButton />
-      </ButtonAndDescriptionWrapper>
-      <ButtonAndDescriptionWrapper buttonDecription="My Info">
-        <MyInfoButton />
-      </ButtonAndDescriptionWrapper>
-      <ButtonAndDescriptionWrapper buttonDecription="Download My Resume">
-        <DownloadResumeButton />
-      </ButtonAndDescriptionWrapper>
+      <HomeButton />
+      <GoToBlogButton />
+      <MyInfoButton />
+      <DownloadResumeButton />
     </div>
   </div>
   <div
@@ -52,12 +44,8 @@ import GoToBlogButton from "./Buttons/GoToBlogButton.astro";
     </div>
     <hr class="h-1 w-full border-black/20 dark:border-white/20" />
     <div class="flex w-full flex-col items-center justify-around gap-5">
-      <ButtonAndDescriptionWrapper buttonDecription="Dark Mode">
-        <DarkModeControl />
-      </ButtonAndDescriptionWrapper>
-      <ButtonAndDescriptionWrapper buttonDecription="Show Progress Bar">
-        <ShowProgressButton />
-      </ButtonAndDescriptionWrapper>
+      <DarkModeControl />
+      <ShowProgressButton />
     </div>
   </div>
 </div>
