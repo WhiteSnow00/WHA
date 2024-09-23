@@ -1,13 +1,9 @@
 ---
-type Props = {
-  href: string;
-};
 
-const { href } = Astro.props;
 ---
 
 <a
-  href={href}
+  id="back-to-prev"
   class="not-prose group relative flex w-fit flex-nowrap rounded border border-black/15 py-1.5 pl-7 pr-3 transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black focus-visible:bg-black/5 focus-visible:text-black dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:bg-white/5 dark:focus-visible:text-white"
 >
   <svg
@@ -27,7 +23,5 @@ const { href } = Astro.props;
       class="translate-x-1 transition-transform duration-300 ease-in-out group-hover:translate-x-0 group-focus-visible:translate-x-0"
     ></polyline>
   </svg>
-  <div class="text-sm">
-    <slot />
-  </div>
+  <div class="text-sm">Back to Previous</div>
 </a>
