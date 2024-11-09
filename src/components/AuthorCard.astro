@@ -20,6 +20,7 @@ const {
   linkedin,
   website,
   mail,
+  facebook,
 } = author.data;
 
 const socialLinks: SocialLink[] = [
@@ -28,6 +29,7 @@ const socialLinks: SocialLink[] = [
   twitter && { href: twitter, label: "Twitter" },
   linkedin && { href: linkedin, label: "LinkedIn" },
   mail && { href: mail, label: "Email" },
+  facebook && { href: facebook, label: "Facebook" },
 ].filter(Boolean) as SocialLink[];
 ---
 

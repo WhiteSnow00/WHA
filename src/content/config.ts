@@ -42,6 +42,7 @@ const webring = defineCollection({
     github: z.string().url().optional(),
     linkedin: z.string().url().optional(),
     discord: z.string().url().optional(),
+    facebook: z.string().url().optional(),
   }),
 });
 
