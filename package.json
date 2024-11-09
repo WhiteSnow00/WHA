@@ -36,6 +36,7 @@
     "astro": "^4.16.7",
     "bootstrap-icons": "^1.11.3",
     "class-variance-authority": "^0.7.0",
+    "clean": "^4.0.2",
     "clsx": "^2.1.1",
     "lucide-react": "^0.439.0",
     "pnpm": "^9.12.3",
@@ -54,24 +55,49 @@
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.15",
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10",
     "prettier": "^3.3.3",
     "prettier-plugin-astro": "^0.13.0",
     "prettier-plugin-astro-organize-imports": "^0.4.10",
     "prettier-plugin-tailwindcss": "^0.5.14"
   },
   "prettier": {
-    "semi": true,
+    "semi": false,
     "singleQuote": false,
+    "trailingComma": "es5",
+    "tabWidth": 2,
+    "printWidth": 90,
     "plugins": [
       "prettier-plugin-astro",
-      "prettier-plugin-tailwindcss",
-      "prettier-plugin-astro-organize-imports"
+      "prettier-plugin-tailwindcss"
     ],
     "overrides": [
       {
         "files": "*.astro",
         "options": {
-          "parser": "astro"
+          "parser": "astro",
+          "semi": false,
+          "singleQuote": false
+        }
+      },
+      {
+        "files": [
+          "*.jsx",
+          "*.tsx"
+        ],
+        "options": {
+          "jsxSingleQuote": false,
+          "jsxBracketSameLine": false
+        }
+      },
+      {
+        "files": [
+          "*.css",
+          "*.scss"
+        ],
+        "options": {
+          "singleQuote": false
         }
       }
     ]
