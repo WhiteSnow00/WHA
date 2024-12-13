@@ -53,6 +53,9 @@ const projects = defineCollection({
       name: z.string(),
       description: z.string(),
       tags: z.array(z.string()),
+      image: image().refine((img) => img.width === 1200 && img.height === 630, {
+        message: "The image must be exactly 1200x630px for Open Graph requirements.",
+      }),
       link: z.string().url(),
     }),
 });
