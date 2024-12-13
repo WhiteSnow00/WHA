@@ -1,8 +1,10 @@
 import * as React from "react";
 import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
+import { getCollection } from 'astro:content';
 
 import { cn } from "@/lib/utils";
 import { type ButtonProps, buttonVariants } from "@/components/ui/button";
+const posts = await getCollection('blog');
 
 const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => (
   <nav
