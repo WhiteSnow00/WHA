@@ -21,7 +21,8 @@
     --border: 0 0% 89.8%;
     --ring: 0 0% 3.9%;
   }
-  .dark {
+
+  :root[class~="dark"] {
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
     --primary: 0 0% 98%;
@@ -40,23 +41,21 @@
     --ring: 0 0% 83.1%;
   }
 
-  *,
-  *::before,
-  *::after {
+  * {
     @apply border-border;
   }
 
   html {
-    color-scheme: light;
     @apply bg-background text-foreground;
+    color-scheme: light;
+  }
 
-    &.dark {
-      color-scheme: dark;
-    }
+  html[class~="dark"] {
+    color-scheme: dark;
+  }
 
-    ::-webkit-scrollbar-corner {
-      @apply bg-transparent;
-    }
+  ::-webkit-scrollbar-corner {
+    @apply bg-transparent;
   }
 
   .disable-transitions,
@@ -68,95 +67,77 @@
 @layer components {
   article {
     @apply prose-headings:scroll-mt-20 prose-headings:break-words prose-p:break-words;
+  }
 
-    .katex-display {
-      @apply overflow-x-auto overflow-y-hidden py-4;
-    }
+  .katex-display {
+    @apply overflow-x-auto overflow-y-hidden py-4;
+  }
 
-    /* Removes background from <mark> elements */
-    mark {
-      @apply bg-transparent;
-    }
+  article mark {
+    @apply bg-transparent;
+  }
 
-    /* Blanket syntax highlighting */
-    code[data-theme*=" "] {
-      span {
-        color: var(--shiki-light);
-      }
+  article code[data-theme*=" "] span {
+    color: var(--shiki-light);
+  }
 
-      .dark & span {
-        color: var(--shiki-dark);
-      }
-    }
+  :root[class~="dark"] article code[data-theme*=" "] span {
+    color: var(--shiki-dark);
+  }
 
-    /* Inline code */
-    :not(pre) > code {
-      @apply relative rounded bg-muted/50 px-[0.3rem] py-[0.2rem] font-mono text-sm font-medium;
-    }
+  article :not(pre) > code {
+    @apply relative rounded bg-muted/50 px-[0.3rem] py-[0.2rem] font-mono text-sm font-medium;
+  }
 
-    /* Code blocks */
-    figure[data-rehype-pretty-code-figure] {
-      @apply relative;
+  .rehype-code-figure {
+    @apply relative;
+  }
 
-      /* Code block titles */
-      [data-rehype-pretty-code-title] {
-        @apply break-words rounded-t-xl border-x border-t px-4 py-2 text-sm font-medium text-foreground;
+  .rehype-code-title {
+    @apply break-words rounded-t-xl border-x border-t px-4 py-2 text-sm font-medium text-foreground;
+  }
 
-        /* Remove top margin from code block if a title is present */
-        & + pre {
-          @apply mt-0 rounded-t-none;
-        }
-      }
+  .rehype-code-title + pre {
+    @apply mt-0 rounded-t-none;
+  }
 
-      /* Code block styles */
-      pre {
-        @apply static max-h-[600px] overflow-auto rounded-xl border bg-secondary/20 py-4 text-sm leading-loose;
+  .rehype-code-block {
+    @apply static max-h-[600px] overflow-auto rounded-xl border bg-secondary/20 py-4 text-sm leading-loose;
+  }
 
-        /* Code block content */
-        > code {
-          @apply whitespace-pre-wrap;
-          counter-reset: line;
+  .rehype-code-content {
+    @apply whitespace-pre-wrap;
+    counter-reset: line;
+  }
 
-          /* For code blocks with line numbers */
-          &[data-line-numbers] {
-            > [data-line]::before {
-              counter-increment: line;
-              content: counter(line);
-              @apply mr-4 inline-block w-4 text-right text-muted-foreground;
-            }
-          }
+  .rehype-code-content[data-line-numbers] [data-line]::before {
+    counter-increment: line;
+    content: counter(line);
+    @apply mr-4 inline-block w-4 text-right text-muted-foreground;
+  }
 
-          /* For each line in the code block */
-          > [data-line] {
-            @apply px-4;
-          }
+  .rehype-code-content [data-line] {
+    @apply px-4;
+  }
 
-          /* Highlighted lines */
-          [data-highlighted-line] {
-            @apply bg-foreground/10;
-          }
+  .rehype-code-content [data-highlighted-line] {
+    @apply bg-foreground/10;
+  }
 
-          /* Highlighted characters */
-          [data-highlighted-chars] > span {
-            @apply bg-muted-foreground/40 py-[7px];
-          }
+  .rehype-code-content [data-highlighted-chars] > span {
+    @apply bg-muted-foreground/40 py-[7px];
+  }
 
-          /* Diff lines */
-          .diff {
-            &.add {
-              @apply bg-additive/15;
-            }
-            &.remove {
-              @apply bg-destructive/15;
-            }
-          }
+  .rehype-code-content .diff.add {
+    @apply bg-additive/15;
+  }
 
-          /* Copy button */
-          > button:has(> span) {
-            @apply right-0.5 top-[3px] m-0 size-8 rounded-md bg-transparent p-1 backdrop-blur-none;
-          }
-        }
-      }
-    }
+  .rehype-code-content .diff.remove {
+    @apply bg-destructive/15;
+  }
+
+  .rehype-code-content > button:has(> span) {
+    @apply right-0.5 top-[3px] m-0 size-8 rounded-md bg-transparent p-1 backdrop-blur-none;
   }
 }
+

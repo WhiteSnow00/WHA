@@ -9,7 +9,7 @@ const Avatar = React.forwardRef<
   <AvatarPrimitive.Root
     ref={ref}
     className={cn(
-      "relative flex h-10 w-10 shrink-0 overflow-hidden",
+      "relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full",
       className
     )}
     {...props}
@@ -23,7 +23,7 @@ const AvatarImage = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <AvatarPrimitive.Image
     ref={ref}
-    className={cn("aspect-square size-full", className)}
+    className={cn("aspect-square h-full w-full", className)}
     {...props}
   />
 ));
@@ -36,7 +36,7 @@ const AvatarFallback = React.forwardRef<
   <AvatarPrimitive.Fallback
     ref={ref}
     className={cn(
-      "flex size-full items-center justify-center bg-muted",
+      "flex h-full w-full items-center justify-center bg-muted",
       className
     )}
     {...props}
@@ -44,25 +44,34 @@ const AvatarFallback = React.forwardRef<
 ));
 AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName;
 
-interface AvatarComponentProps {
+interface AvatarProps {
   src?: string;
   alt?: string;
   fallback?: string;
   className?: string;
 }
 
-const AvatarComponent: React.FC<AvatarComponentProps> = ({
-  src,
-  alt,
-  fallback,
-  className,
-}) => {
+const AvatarComponent = React.forwardRef<
+  React.ElementRef<typeof AvatarPrimitive.Root>,
+  AvatarProps
+>(({ src, alt, fallback, className }, ref) => {
   return (
-    <Avatar className={className}>
+    <Avatar className={className} ref={ref}>
       <AvatarImage src={src} alt={alt} />
       <AvatarFallback>{fallback}</AvatarFallback>
     </Avatar>
   );
+});
+
+AvatarComponent.displayName = "AvatarComponent";
+
+export {
+  Avatar,
+  AvatarImage,
+  AvatarFallback,
+  AvatarComponent,
+  type AvatarProps,
 };
 
 export default AvatarComponent;
+

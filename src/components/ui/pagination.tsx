@@ -1,12 +1,10 @@
 import * as React from "react";
 import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
-import { getCollection } from 'astro:content';
-
 import { cn } from "@/lib/utils";
 import { type ButtonProps, buttonVariants } from "@/components/ui/button";
-const posts = await getCollection('blog');
 
 const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => (
+
   <nav
     role="navigation"
     aria-label="pagination"
@@ -119,56 +117,155 @@ interface PaginationProps {
   currentPage: number;
   totalPages: number;
   baseUrl: string;
+  onPageChange?: (page: number) => void;
+  maxVisiblePages?: number;
+  showFirstLast?: boolean;
 }
 
 const PaginationComponent: React.FC<PaginationProps> = ({
   currentPage,
   totalPages,
   baseUrl,
+  onPageChange,
+  maxVisiblePages = 5,
+  showFirstLast = true,
 }) => {
-  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+  const getPageRange = () => {
+    const range: (number | string)[] = [];
+    const showEllipsisStart = currentPage > maxVisiblePages - 2;
+    const showEllipsisEnd = currentPage < totalPages - (maxVisiblePages - 3);
+
+    if (showEllipsisStart) {
+      range.push(1);
+      if (currentPage > maxVisiblePages - 1) range.push('...');
+    }
+
+    for (let i = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+         i <= Math.min(totalPages, currentPage + Math.floor(maxVisiblePages / 2));
+         i++) {
+      range.push(i);
+    }
+
+    if (showEllipsisEnd) {
+      if (currentPage < totalPages - (maxVisiblePages - 2)) range.push('...');
+      range.push(totalPages);
+    }
+
+    return range;
+  };
 
   const getPageUrl = (page: number) => {
     if (page === 1) return baseUrl;
     return `${baseUrl}${page}`;
   };
 
+  const handleKeyboardNavigation = (e: React.KeyboardEvent) => {
+    if (e.key === 'ArrowLeft' && currentPage > 1) {
+      onPageChange?.(currentPage - 1);
+    } else if (e.key === 'ArrowRight' && currentPage < totalPages) {
+      onPageChange?.(currentPage + 1);
+    } else if (e.key === 'Home') {
+      onPageChange?.(1);
+    } else if (e.key === 'End') {
+      onPageChange?.(totalPages);
+    }
+  };
+
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.altKey && e.key === 'p') {
+        onPageChange?.(currentPage > 1 ? currentPage - 1 : currentPage);
+      } else if (e.altKey && e.key === 'n') {
+        onPageChange?.(currentPage < totalPages ? currentPage + 1 : currentPage);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [currentPage, totalPages, onPageChange]);
+
   return (
     <Pagination>
-      <PaginationContent className="flex-wrap">
-        <PaginationItem>
-          <PaginationPrevious
-            href={currentPage > 1 ? getPageUrl(currentPage - 1) : undefined}
-            isDisabled={currentPage === 1}
-          />
-        </PaginationItem>
-
-        {pages.map((page) => (
-          <PaginationItem key={page}>
-            <PaginationLink
-              href={getPageUrl(page)}
-              isActive={page === currentPage}
-            >
-              {page}
-            </PaginationLink>
-          </PaginationItem>
-        ))}
-
-        {totalPages > 5 && (
+      <PaginationContent 
+        className="flex-wrap"
+        onKeyDown={handleKeyboardNavigation}
+        role="navigation"
+        aria-label="Pagination Navigation"
+      >
+        {showFirstLast && (
           <PaginationItem>
-            <PaginationEllipsis />
+            <PaginationLink
+              href={getPageUrl(1)}
+              isDisabled={currentPage === 1}
+              aria-label="Go to first page"
+            >
+              First
+            </PaginationLink>
           </PaginationItem>
         )}
 
         <PaginationItem>
-          <PaginationNext
-            href={
-              currentPage < totalPages ? getPageUrl(currentPage + 1) : undefined
-            }
-            isDisabled={currentPage === totalPages}
+          <PaginationPrevious
+            href={currentPage > 1 ? getPageUrl(currentPage - 1) : undefined}
+            isDisabled={currentPage === 1}
+            onClick={(e) => {
+              if (currentPage > 1) {
+                e.preventDefault();
+                onPageChange?.(currentPage - 1);
+              }
+            }}
           />
         </PaginationItem>
+
+        {getPageRange().map((page, index) => (
+          <PaginationItem key={`${page}-${index}`}>
+            {typeof page === 'number' ? (
+              <PaginationLink
+                href={getPageUrl(page)}
+                isActive={page === currentPage}
+                onClick={(e) => {
+                  e.preventDefault();
+                  onPageChange?.(page);
+                }}
+                aria-current={page === currentPage ? 'page' : undefined}
+              >
+                {page}
+              </PaginationLink>
+            ) : (
+              <PaginationEllipsis />
+            )}
+          </PaginationItem>
+        ))}
+
+        <PaginationItem>
+          <PaginationNext
+            href={currentPage < totalPages ? getPageUrl(currentPage + 1) : undefined}
+            isDisabled={currentPage === totalPages}
+            onClick={(e) => {
+              if (currentPage < totalPages) {
+                e.preventDefault();
+                onPageChange?.(currentPage + 1);
+              }
+            }}
+          />
+        </PaginationItem>
+
+        {showFirstLast && (
+          <PaginationItem>
+            <PaginationLink
+              href={getPageUrl(totalPages)}
+              isDisabled={currentPage === totalPages}
+              aria-label="Go to last page"
+            >
+              Last
+            </PaginationLink>
+          </PaginationItem>
+        )}
       </PaginationContent>
+
+      <div className="mt-2 text-center text-sm text-muted-foreground">
+        Page {currentPage} of {totalPages}
+      </div>
     </Pagination>
   );
 };
