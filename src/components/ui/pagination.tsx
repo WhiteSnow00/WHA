@@ -148,18 +148,28 @@ const PaginationComponent: React.FC<PaginationProps> = ({
 
   const handleInputSubmit = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
+      e.preventDefault();
       const page = parseInt(inputValue);
       if (!isNaN(page) && page >= 1 && page <= totalPages) {
+        // Create a link element that matches our PaginationLink structure
+        const link = document.createElement('a');
+        link.href = getPageUrl(page);
+        link.className = buttonVariants({ variant: 'ghost' });
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        // Update the state
         onPageChange?.(page);
         setShowInput(null);
         setInputValue('');
-        window.location.href = getPageUrl(page);
       }
     } else if (e.key === 'Escape') {
       setShowInput(null);
       setInputValue('');
     }
   };
+
 
 
 
@@ -188,6 +198,7 @@ const PaginationComponent: React.FC<PaginationProps> = ({
   };
 
   const getPageUrl = (page: number) => {
+    // Ensure baseUrl ends with a slash if it doesn't already
     const normalizedBaseUrl = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
     if (page === 1) return normalizedBaseUrl;
     return `${normalizedBaseUrl}${page}`;
@@ -198,7 +209,11 @@ const PaginationComponent: React.FC<PaginationProps> = ({
       e.preventDefault();
       return;
     }
+    
+    // Call onPageChange callback if provided
     onPageChange?.(page);
+    
+    // Let the native link and Astro's view transitions handle the navigation
   };
 
 
@@ -262,38 +277,28 @@ const PaginationComponent: React.FC<PaginationProps> = ({
         {getPageRange().map((page, index) => (
           <PaginationItem key={`${page}-${index}`}>
             {typeof page === 'number' ? (
-                <PaginationLink
-                href={getPageUrl(page)}
-                isActive={page === currentPage}
-                onClick={(e) => {
-                  e.preventDefault();
-                  if (page !== currentPage) {
-                  onPageChange?.(page);
-                  window.location.href = getPageUrl(page);
-                  }
-                }}
-                aria-current={page === currentPage ? 'page' : undefined}
-                >
-                {page}
-                </PaginationLink>
+              <PaginationLink
+              href={getPageUrl(page)}
+              isActive={page === currentPage}
+              onClick={(e) => handlePageClick(e, page)}
+              aria-current={page === currentPage ? 'page' : undefined}
+              >
+              {page}
+              </PaginationLink>
             ) : (
               showInput === index ? (
-              <input
+                <input
                 ref={inputRef}
-                  ref={inputRef}
-                  type="text"
-                  inputMode="numeric"
-                  pattern="[0-9]*"
-                  value={inputValue}
-                  onChange={(e) => {
-                  const val = e.target.value.replace(/[^0-9]/g, '');
-                  setInputValue(val);
-                  }}
-                  onKeyDown={handleInputSubmit}
-                  onBlur={() => setShowInput(null)}
-                  className="w-12 h-9 rounded-md border border-input bg-background px-2 text-sm text-center"
-                  style={{ appearance: 'textfield' }}
-              />
+                type="number"
+                min={1}
+                max={totalPages}
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                onKeyDown={handleInputSubmit}
+                onBlur={() => setShowInput(null)}
+                className="w-16 h-9 rounded-md border border-input bg-background px-3 py-1 text-sm ring-offset-background [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                />
+
               ) : (
               <PaginationEllipsis onClick={() => handleEllipsisClick(index)} />
               )
