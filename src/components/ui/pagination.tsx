@@ -3,6 +3,8 @@ import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { type ButtonProps, buttonVariants } from "@/components/ui/button";
 
+
+
 const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => (
 
 
@@ -138,6 +140,7 @@ const PaginationComponent: React.FC<PaginationProps> = ({
   const [inputValue, setInputValue] = React.useState('');
   const inputRef = React.useRef<HTMLInputElement>(null);
 
+
   const handleEllipsisClick = (index: number) => {
     setShowInput(index);
     setInputValue('');
@@ -159,7 +162,6 @@ const PaginationComponent: React.FC<PaginationProps> = ({
         link.click();
         document.body.removeChild(link);
         
-        // Update the state
         onPageChange?.(page);
         setShowInput(null);
         setInputValue('');
@@ -169,9 +171,6 @@ const PaginationComponent: React.FC<PaginationProps> = ({
       setInputValue('');
     }
   };
-
-
-
 
   const getPageRange = () => {
     const range: (number | string)[] = [];
@@ -198,7 +197,6 @@ const PaginationComponent: React.FC<PaginationProps> = ({
   };
 
   const getPageUrl = (page: number) => {
-    // Ensure baseUrl ends with a slash if it doesn't already
     const normalizedBaseUrl = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
     if (page === 1) return normalizedBaseUrl;
     return `${normalizedBaseUrl}${page}`;
@@ -209,11 +207,8 @@ const PaginationComponent: React.FC<PaginationProps> = ({
       e.preventDefault();
       return;
     }
-    
-    // Call onPageChange callback if provided
+    e.currentTarget.setAttribute('data-astro-transition', '');
     onPageChange?.(page);
-    
-    // Let the native link and Astro's view transitions handle the navigation
   };
 
 
@@ -228,6 +223,9 @@ const PaginationComponent: React.FC<PaginationProps> = ({
       onPageChange?.(totalPages);
     }
   };
+
+
+
 
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -244,12 +242,13 @@ const PaginationComponent: React.FC<PaginationProps> = ({
 
   return (
     <Pagination>
-      <PaginationContent 
-      className="flex-wrap transition-all duration-200 ease-in-out"
-
+        <PaginationContent 
+        className="flex-wrap"
+        style={{ viewTransitionName: 'pagination' }}
         onKeyDown={handleKeyboardNavigation}
         role="navigation"
         aria-label="Pagination Navigation"
+
         >
         {showFirstLast && (
           <PaginationItem>
@@ -270,6 +269,7 @@ const PaginationComponent: React.FC<PaginationProps> = ({
             href={currentPage > 1 ? getPageUrl(currentPage - 1) : undefined}
             isDisabled={currentPage === 1}
             onClick={(e) => handlePageClick(e, currentPage - 1)}
+            data-astro-transition
 
             />
         </PaginationItem>
@@ -280,8 +280,9 @@ const PaginationComponent: React.FC<PaginationProps> = ({
               <PaginationLink
               href={getPageUrl(page)}
               isActive={page === currentPage}
-              onClick={(e) => handlePageClick(e, page)}
-              aria-current={page === currentPage ? 'page' : undefined}
+                onClick={(e) => handlePageClick(e, page)}
+                aria-current={page === currentPage ? 'page' : undefined}
+                data-astro-transition
               >
               {page}
               </PaginationLink>
@@ -311,6 +312,7 @@ const PaginationComponent: React.FC<PaginationProps> = ({
             href={currentPage < totalPages ? getPageUrl(currentPage + 1) : undefined}
             isDisabled={currentPage === totalPages}
             onClick={(e) => handlePageClick(e, currentPage + 1)}
+            data-astro-transition
 
             />
         </PaginationItem>
@@ -321,7 +323,8 @@ const PaginationComponent: React.FC<PaginationProps> = ({
               href={getPageUrl(totalPages)}
               isDisabled={currentPage === totalPages}
               aria-label="Go to last page"
-                  onClick={(e) => handlePageClick(e, totalPages)}
+                    onClick={(e) => handlePageClick(e, totalPages)}
+                    data-astro-transition
 
             >
               Last
@@ -330,9 +333,13 @@ const PaginationComponent: React.FC<PaginationProps> = ({
         )}
       </PaginationContent>
 
-      <div className="mt-2 text-center text-sm text-muted-foreground">
+        <div 
+        className="mt-2 text-center text-sm text-muted-foreground"
+        style={{ viewTransitionName: 'page-info' }}
+        >
+
         Page {currentPage} of {totalPages}
-      </div>
+        </div>
     </Pagination>
 
   );
