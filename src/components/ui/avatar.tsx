@@ -74,3 +74,4 @@ export {
 };
 
 export default AvatarComponent;
+
