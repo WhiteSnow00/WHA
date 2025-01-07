@@ -15,7 +15,7 @@ const { title, description, image } = Astro.props
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
   <head>
     <Head
       title={`${title} | ${SITE.TITLE}`}
@@ -29,7 +29,7 @@ const { title, description, image } = Astro.props
       class="box-border flex h-fit min-h-screen flex-col gap-y-6 font-sans antialiased"
     >
       <Header />
-        <main class="flex-grow" transition:animate="slide">
+        <main class="flex-grow">
         <slot />
       </main>
       <Footer />
@@ -40,56 +40,35 @@ const { title, description, image } = Astro.props
 <style is:global>
   ::view-transition-old(root),
   ::view-transition-new(root) {
-    animation-duration: 0.2s;
-    animation-timing-function: ease-out;
-  }
-
-  /* Add specific styles for avatar transitions */
-  ::view-transition-old(avatar),
-  ::view-transition-new(avatar),
-  ::view-transition-old(avatar-image),
-  ::view-transition-new(avatar-image),
-  ::view-transition-old(avatar-fallback),
-  ::view-transition-new(avatar-fallback) {
     animation: none;
     mix-blend-mode: normal;
-    display: block;
+  }
+
+  ::view-transition-old(image),
+  ::view-transition-new(image) {
+    animation: none;
+    mix-blend-mode: normal;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
   }
 
-  ::view-transition-old(slide) {
-    animation: 90ms cubic-bezier(0.4, 0, 1, 1) both slide-out;
+  ::view-transition-old(image) {
+    filter: blur(0);
   }
 
-  ::view-transition-new(slide) {
-    animation: 210ms cubic-bezier(0, 0, 0.2, 1) both slide-in;
+  ::view-transition-new(image) {
+    filter: blur(1rem);
+    animation: blur-out 0.5s ease-out forwards;
   }
 
-  @keyframes slide-in {
-    from {
-      opacity: 0;
-      transform: translateX(2rem);
+  @keyframes blur-out {
+    0% {
+      filter: blur(1rem);
     }
-    to {
-      opacity: 1;
-      transform: translateX(0);
+    100% {
+      filter: blur(0);
     }
   }
 
-  @keyframes slide-out {
-    from {
-      opacity: 1;
-      transform: translateX(0);
-    }
-    to {
-      opacity: 0;
-      transform: translateX(-2rem);
-    }
-  }
-
-
+</style>
