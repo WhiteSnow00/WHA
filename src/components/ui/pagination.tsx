@@ -1,14 +1,15 @@
-import * as React from "react";
+import React from 'react';
 import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { type ButtonProps, buttonVariants } from "@/components/ui/button";
 
 const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => (
 
+
   <nav
     role="navigation"
     aria-label="pagination"
-    className={cn("mx-auto flex w-full justify-center", className)}
+    className={cn("mx-auto flex w-full justify-center transition-opacity duration-200", className)}
     {...props}
   />
 );
@@ -37,6 +38,7 @@ PaginationItem.displayName = "PaginationItem";
 type PaginationLinkProps = {
   isActive?: boolean;
   isDisabled?: boolean;
+  onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void;
 } & Pick<ButtonProps, "size"> &
   React.ComponentProps<"a">;
 
@@ -100,11 +102,13 @@ PaginationNext.displayName = "PaginationNext";
 
 const PaginationEllipsis = ({
   className,
+  onClick,
   ...props
-}: React.ComponentProps<"span">) => (
+}: React.ComponentProps<"span"> & { onClick?: () => void }) => (
   <span
     aria-hidden
-    className={cn("flex h-9 w-9 items-center justify-center", className)}
+    className={cn("flex h-9 w-9 items-center justify-center cursor-pointer hover:bg-accent hover:text-accent-foreground", className)}
+    onClick={onClick}
     {...props}
   >
     <MoreHorizontal className="h-4 w-4" />
@@ -130,6 +134,35 @@ const PaginationComponent: React.FC<PaginationProps> = ({
   maxVisiblePages = 5,
   showFirstLast = true,
 }) => {
+  const [showInput, setShowInput] = React.useState<number | null>(null);
+  const [inputValue, setInputValue] = React.useState('');
+  const inputRef = React.useRef<HTMLInputElement>(null);
+
+  const handleEllipsisClick = (index: number) => {
+    setShowInput(index);
+    setInputValue('');
+    setTimeout(() => {
+      inputRef.current?.focus();
+    }, 0);
+  };
+
+  const handleInputSubmit = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      const page = parseInt(inputValue);
+      if (!isNaN(page) && page >= 1 && page <= totalPages) {
+        onPageChange?.(page);
+        setShowInput(null);
+        setInputValue('');
+        window.location.href = getPageUrl(page);
+      }
+    } else if (e.key === 'Escape') {
+      setShowInput(null);
+      setInputValue('');
+    }
+  };
+
+
+
   const getPageRange = () => {
     const range: (number | string)[] = [];
     const showEllipsisStart = currentPage > maxVisiblePages - 2;
@@ -155,9 +188,19 @@ const PaginationComponent: React.FC<PaginationProps> = ({
   };
 
   const getPageUrl = (page: number) => {
-    if (page === 1) return baseUrl;
-    return `${baseUrl}${page}`;
+    const normalizedBaseUrl = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+    if (page === 1) return normalizedBaseUrl;
+    return `${normalizedBaseUrl}${page}`;
   };
+
+  const handlePageClick = (e: React.MouseEvent<HTMLAnchorElement>, page: number) => {
+    if (page === currentPage) {
+      e.preventDefault();
+      return;
+    }
+    onPageChange?.(page);
+  };
+
 
   const handleKeyboardNavigation = (e: React.KeyboardEvent) => {
     if (e.key === 'ArrowLeft' && currentPage > 1) {
@@ -187,17 +230,20 @@ const PaginationComponent: React.FC<PaginationProps> = ({
   return (
     <Pagination>
       <PaginationContent 
-        className="flex-wrap"
+      className="flex-wrap transition-all duration-200 ease-in-out"
+
         onKeyDown={handleKeyboardNavigation}
         role="navigation"
         aria-label="Pagination Navigation"
-      >
+        >
         {showFirstLast && (
           <PaginationItem>
             <PaginationLink
               href={getPageUrl(1)}
               isDisabled={currentPage === 1}
               aria-label="Go to first page"
+                  onClick={(e) => handlePageClick(e, 1)}
+
             >
               First
             </PaginationLink>
@@ -205,49 +251,63 @@ const PaginationComponent: React.FC<PaginationProps> = ({
         )}
 
         <PaginationItem>
-          <PaginationPrevious
+            <PaginationPrevious
             href={currentPage > 1 ? getPageUrl(currentPage - 1) : undefined}
             isDisabled={currentPage === 1}
-            onClick={(e) => {
-              if (currentPage > 1) {
-                e.preventDefault();
-                onPageChange?.(currentPage - 1);
-              }
-            }}
-          />
+            onClick={(e) => handlePageClick(e, currentPage - 1)}
+
+            />
         </PaginationItem>
 
         {getPageRange().map((page, index) => (
           <PaginationItem key={`${page}-${index}`}>
             {typeof page === 'number' ? (
-              <PaginationLink
+                <PaginationLink
                 href={getPageUrl(page)}
                 isActive={page === currentPage}
                 onClick={(e) => {
                   e.preventDefault();
+                  if (page !== currentPage) {
                   onPageChange?.(page);
+                  window.location.href = getPageUrl(page);
+                  }
                 }}
                 aria-current={page === currentPage ? 'page' : undefined}
-              >
+                >
                 {page}
-              </PaginationLink>
+                </PaginationLink>
             ) : (
-              <PaginationEllipsis />
+              showInput === index ? (
+              <input
+                ref={inputRef}
+                  ref={inputRef}
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  value={inputValue}
+                  onChange={(e) => {
+                  const val = e.target.value.replace(/[^0-9]/g, '');
+                  setInputValue(val);
+                  }}
+                  onKeyDown={handleInputSubmit}
+                  onBlur={() => setShowInput(null)}
+                  className="w-12 h-9 rounded-md border border-input bg-background px-2 text-sm text-center"
+                  style={{ appearance: 'textfield' }}
+              />
+              ) : (
+              <PaginationEllipsis onClick={() => handleEllipsisClick(index)} />
+              )
             )}
           </PaginationItem>
         ))}
 
         <PaginationItem>
-          <PaginationNext
+            <PaginationNext
             href={currentPage < totalPages ? getPageUrl(currentPage + 1) : undefined}
             isDisabled={currentPage === totalPages}
-            onClick={(e) => {
-              if (currentPage < totalPages) {
-                e.preventDefault();
-                onPageChange?.(currentPage + 1);
-              }
-            }}
-          />
+            onClick={(e) => handlePageClick(e, currentPage + 1)}
+
+            />
         </PaginationItem>
 
         {showFirstLast && (
@@ -256,6 +316,8 @@ const PaginationComponent: React.FC<PaginationProps> = ({
               href={getPageUrl(totalPages)}
               isDisabled={currentPage === totalPages}
               aria-label="Go to last page"
+                  onClick={(e) => handlePageClick(e, totalPages)}
+
             >
               Last
             </PaginationLink>
@@ -267,6 +329,7 @@ const PaginationComponent: React.FC<PaginationProps> = ({
         Page {currentPage} of {totalPages}
       </div>
     </Pagination>
+
   );
 };
 
