@@ -10,6 +10,13 @@ import {
 import { NAV_LINKS } from "@consts";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { LucideIcon } from 'lucide-react';
+
+interface NavLink {
+  href: string;
+  label: string;
+  icon?: LucideIcon;
+}
 
 interface MobileMenuProps {
   className?: string;
@@ -28,6 +35,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
   const [activeIndex, setActiveIndex] = useState<number>(-1);
   const menuRef = useRef<HTMLDivElement>(null);
   const [touchStart, setTouchStart] = useState<number | null>(null);
+  const navLinks = NAV_LINKS as NavLink[];
 
   // Handle keyboard navigation
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
@@ -36,18 +44,18 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
     switch (e.key) {
       case "ArrowDown":
         e.preventDefault();
-        setActiveIndex(prev => (prev + 1) % NAV_LINKS.length);
+        setActiveIndex(prev => (prev + 1) % navLinks.length);
         break;
       case "ArrowUp":
         e.preventDefault();
-        setActiveIndex(prev => (prev - 1 + NAV_LINKS.length) % NAV_LINKS.length);
+        setActiveIndex(prev => (prev - 1 + navLinks.length) % navLinks.length);
         break;
       case "Escape":
         setIsOpen(false);
         break;
       case "Enter":
         if (activeIndex >= 0) {
-          window.location.href = NAV_LINKS[activeIndex].href;
+            window.location.href = navLinks[activeIndex].href;
           setIsOpen(false);
         }
         break;
@@ -139,7 +147,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
             transformOrigin: "top right" 
           }}
         >
-          {NAV_LINKS.map((item, index) => (
+            {navLinks.map((item, index) => (
             <DropdownMenuItem
               key={item.href}
               asChild
