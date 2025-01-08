@@ -20,6 +20,7 @@
     --destructive-foreground: 0 0% 98%;
     --border: 0 0% 89.8%;
     --ring: 0 0% 3.9%;
+    --radius: 0.5rem;
   }
 
   :root[class~="dark"] {
@@ -45,6 +46,10 @@
     @apply border-border;
   }
 
+  body {
+    @apply min-h-screen bg-background font-sans antialiased;
+  }
+
   html {
     @apply bg-background text-foreground;
     color-scheme: light;
@@ -53,6 +58,18 @@
 
   html[class~="dark"] {
     color-scheme: dark;
+  }
+  
+  ::-webkit-scrollbar {
+    @apply w-2 h-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-secondary/20;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/50 rounded-full hover:bg-muted-foreground/70 transition-colors;
   }
 
   ::-webkit-scrollbar-corner {
@@ -67,7 +84,7 @@
 
 @layer components {
   article {
-    @apply prose-headings:scroll-mt-20 prose-headings:break-words prose-p:break-words;
+    @apply prose-headings:scroll-mt-20 prose-headings:break-words prose-p:break-words max-w-none;
   }
 
   .katex-display {
@@ -91,11 +108,11 @@
   }
 
   .rehype-code-figure {
-    @apply relative;
+    @apply relative my-4;
   }
 
   .rehype-code-title {
-    @apply break-words rounded-t-xl border-x border-t px-4 py-2 text-sm font-medium text-foreground;
+    @apply break-words rounded-t-xl border-x border-t px-4 py-2 text-sm font-medium text-foreground bg-secondary/10;
   }
 
   .rehype-code-title + pre {
@@ -103,42 +120,50 @@
   }
 
   .rehype-code-block {
-    @apply static max-h-[600px] overflow-auto rounded-xl border bg-secondary/20 py-4 text-sm leading-loose;
+    @apply static max-h-[600px] overflow-auto rounded-xl border bg-secondary/20 py-4 text-sm leading-loose shadow-sm;
   }
 
   .rehype-code-content {
-    @apply whitespace-pre-wrap;
+    @apply whitespace-pre-wrap font-mono;
     counter-reset: line;
   }
 
   .rehype-code-content[data-line-numbers] [data-line]::before {
     counter-increment: line;
     content: counter(line);
-    @apply mr-4 inline-block w-4 text-right text-muted-foreground;
+    @apply mr-4 inline-block w-4 text-right text-muted-foreground select-none;
   }
 
   .rehype-code-content [data-line] {
-    @apply px-4;
+    @apply px-4 transition-colors;
   }
 
   .rehype-code-content [data-highlighted-line] {
-    @apply bg-foreground/10;
+    @apply bg-foreground/10 border-l-2 border-primary;
   }
 
   .rehype-code-content [data-highlighted-chars] > span {
-    @apply bg-muted-foreground/40 py-[7px];
+    @apply bg-muted-foreground/40 py-[7px] rounded-[0.2rem];
   }
 
   .rehype-code-content .diff.add {
-    @apply bg-additive/15;
+    @apply bg-additive/15 border-l-2 border-additive;
   }
 
   .rehype-code-content .diff.remove {
-    @apply bg-destructive/15;
+    @apply bg-destructive/15 border-l-2 border-destructive;
   }
 
   .rehype-code-content > button:has(> span) {
-    @apply right-0.5 top-[3px] m-0 size-8 rounded-md bg-transparent p-1 backdrop-blur-none;
+    @apply absolute right-2 top-2 m-0 size-8 rounded-md bg-secondary/30 p-1.5 hover:bg-secondary/50 transition-colors;
+  }
+
+  .glass-effect {
+    @apply bg-background/80 backdrop-blur-sm border;
+  }
+
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2;
   }
 }
 
