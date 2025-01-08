@@ -23,7 +23,7 @@ export async function getStaticPaths({
 const { page } = Astro.props
 
 function formatMonth(date: Date): string {
-  return date.toLocaleString('en-US', { month: 'long' })
+  return date.toLocaleString('vi-VN', { month: 'long' })
 }
 
 const postsByYearAndMonth = page.data.reduce(
