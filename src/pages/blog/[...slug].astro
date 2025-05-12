@@ -8,7 +8,8 @@ import Link from "@components/Link.astro";
 import PostNavigation from "@components/PostNavigation.astro";
 import TableOfContents from "@components/TableOfContents.astro";
 import Layout from "@layouts/Layout.astro";
-import { formatDate, parseAuthors, readingTime } from "@lib/utils";
+import { formatDate, readingTime } from "@lib/utils"; // Removed parseAuthors
+import { parseAuthors } from "@lib/server-utils"; // Added import
 import { Image } from "astro:assets";
 import { type CollectionEntry, getCollection } from "astro:content";
 import { ArrowUp, Hash } from "lucide-react";
