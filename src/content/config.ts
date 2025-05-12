@@ -17,12 +17,7 @@ const blog = defineCollection({
           "Description should be 155 characters or less for optimal Open Graph display."
         ),
       date: z.coerce.date(),
-      image: image()
-        .refine((img) => img.width === 1200 && img.height === 630, {
-          message:
-            "The image must be exactly 1200px × 630px for Open Graph requirements.",
-        })
-        .optional(),
+      image: image().optional(), // Make the image field optional
       tags: z.array(z.string()).optional(),
       authors: z.array(z.string()).optional(),
       draft: z.boolean().optional(),
@@ -53,9 +48,7 @@ const projects = defineCollection({
       name: z.string(),
       description: z.string(),
       tags: z.array(z.string()),
-      image: image().refine((img) => img.width === 1200 && img.height === 630, {
-        message: "The image must be exactly 1200x630px for Open Graph requirements.",
-      }),
+      image: image(), // No size validation, but the field is still validated as an image
       link: z.string().url(),
     }),
 });
