@@ -15,9 +15,8 @@ import remarkEmoji from "remark-emoji";
 import remarkMath from "remark-math";
 import remarkToc from "remark-toc";
 import sectionize from "@hbsnow/rehype-sectionize";
-import vercel from "@astrojs/vercel/static";
 
-import vercel from "@astrojs/vercel/static";
+import vercel from "@astrojs/vercel";
 
 export default defineConfig({
   site: "https://wha-ayaya.vercel.app/",
