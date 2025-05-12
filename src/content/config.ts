@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { defineCollection, z } from "astro:content";
 
 const blog = defineCollection({
@@ -9,70 +8,13 @@ const blog = defineCollection({
         .string()
         .max(
           60,
-          "Title should be 60 characters or less for optimal Open Graph display."
+          "Title should be 60 characters or less for optimal Open Graph display.",
         ),
       description: z
         .string()
         .max(
           155,
-          "Description should be 155 characters or less for optimal Open Graph display."
-        ),
-      date: z.coerce.date(),
-      image: image().optional(), // Make the image field optional
-      tags: z.array(z.string()).optional(),
-      authors: z.array(z.string()).optional(),
-      draft: z.boolean().optional(),
-    }),
-});
-
-const webring = defineCollection({
-  type: "content",
-  schema: z.object({
-    name: z.string(),
-    webringKind: z.string().optional(),
-    avatar: z.string().url(),
-    bio: z.string().optional(),
-    mail: z.string().email().optional(),
-    website: z.string().url().optional(),
-    twitter: z.string().url().optional(),
-    github: z.string().url().optional(),
-    linkedin: z.string().url().optional(),
-    discord: z.string().url().optional(),
-    facebook: z.string().url().optional(),
-  }),
-});
-
-const projects = defineCollection({
-  type: "content",
-  schema: ({ image }) =>
-    z.object({
-      name: z.string(),
-      description: z.string(),
-      tags: z.array(z.string()),
-      image: image(), // No size validation, but the field is still validated as an image
-      link: z.string().url(),
-    }),
-});
-
-export const collections = { blog, webring, projects };
-=======
-import { defineCollection, z } from "astro:content";
-
-const blog = defineCollection({
-  type: "content",
-  schema: ({ image }) =>
-    z.object({
-      title: z
-        .string()
-        .max(
-          60,
-          "Title should be 60 characters or less for optimal Open Graph display."
-        ),
-      description: z
-        .string()
-        .max(
-          155,
-          "Description should be 155 characters or less for optimal Open Graph display."
+          "Description should be 155 characters or less for optimal Open Graph display.",
         ),
       date: z.coerce.date(),
       image: image()
@@ -100,23 +42,8 @@ const webring = defineCollection({
     github: z.string().url().optional(),
     linkedin: z.string().url().optional(),
     discord: z.string().url().optional(),
-    facebook: z.string().url().optional(),
+    stream: z.string().url().optional(),
   }),
 });
 
-const projects = defineCollection({
-  type: "content",
-  schema: ({ image }) =>
-    z.object({
-      name: z.string(),
-      description: z.string(),
-      tags: z.array(z.string()),
-      image: image().refine((img) => img.width === 1200 && img.height === 630, {
-        message: "The image must be exactly 1200x630px for Open Graph requirements.",
-      }),
-      link: z.string().url(),
-    }),
-});
-
-export const collections = { blog, webring, projects };
->>>>>>> 84fc9161d41bb9265ccfa2e17a268e83366eb7df
+export const collections = { blog, webring };
