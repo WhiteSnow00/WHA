@@ -1,5 +1,4 @@
 import { defineCollection, z } from "astro:content";
-import type { Facebook } from "lucide-react";
 
 const blog = defineCollection({
   type: "content",
@@ -38,7 +37,7 @@ const projects = defineCollection({
     description: z.string().optional(),
     date: z.coerce.date().optional(),
     link: z.string().url(),
-    image: z.any(), 
+    image: z.string(),
     tags: z.array(z.string()).optional(),
   }),
 });
@@ -61,4 +60,4 @@ const webring = defineCollection({
   }),
 });
 
-export const collections = { blog, webring };
+export const collections = { blog, webring, projects };
