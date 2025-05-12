@@ -37,7 +37,7 @@ const projects = defineCollection({
     description: z.string().optional(),
     date: z.coerce.date().optional(),
     link: z.string().url(),
-    image: z.string(),
+    image: z.string(), // Changed from z.any() to z.string() for file paths
     tags: z.array(z.string()).optional(),
   }),
 });
