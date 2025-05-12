@@ -1,4 +1,5 @@
 import { defineCollection, z } from "astro:content";
+import type { Facebook } from "lucide-react";
 
 const blog = defineCollection({
   type: "content",
@@ -39,6 +40,7 @@ const webring = defineCollection({
     mail: z.string().email().optional(),
     website: z.string().url().optional(),
     twitter: z.string().url().optional(),
+    facebook: z.string().url().optional(),
     github: z.string().url().optional(),
     linkedin: z.string().url().optional(),
     discord: z.string().url().optional(),
