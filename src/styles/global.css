@@ -66,7 +66,12 @@
   }
 
   body {
-    @apply overflow-y-scroll scrollbar-thin scrollbar-thumb-rounded-lg scrollbar-thumb-secondary scrollbar-track-secondary/50 scrollbar-hover:scrollbar-thumb-primary;
+    @apply overflow-y-scroll scrollbar-thin scrollbar-thumb-rounded-lg scrollbar-thumb-secondary scrollbar-track-secondary/50;
+  }
+
+  /* Custom hover effect for scrollbar */
+  body::-webkit-scrollbar-thumb:hover {
+    background-color: hsl(var(--primary));
   }
 }
 
