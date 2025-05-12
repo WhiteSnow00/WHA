@@ -26,9 +26,7 @@ export async function parseAuthors(authors: string[]) {
 
   const parseAuthor = async (slug: string) => {
     try {
-      slug = slug.toLowerCase();
       const author = await getEntry("webring", slug);
-      if (!author || author === undefined) throw Error("Fetched author entry is undefined")
       return {
         slug,
         name: author?.data?.name || slug,
@@ -36,7 +34,7 @@ export async function parseAuthors(authors: string[]) {
         isRegistered: !!author,
       };
     } catch (error) {
-      console.error("Error fetching author with slug ${slug}:, error");
+      console.error(`Error fetching author with slug ${slug}:`, error);
       return {
         slug,
         name: slug,
@@ -48,4 +46,3 @@ export async function parseAuthors(authors: string[]) {
 
   return await Promise.all(authors.map(parseAuthor));
 }
-
