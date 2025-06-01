@@ -10,7 +10,7 @@ import {
 import { NAV_LINKS } from "@consts";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import type { LucideIcon } from 'lucide-react';
+import type { LucideIcon } from "lucide-react";
 
 interface NavLink {
   href: string;
@@ -38,29 +38,34 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
   const navLinks = NAV_LINKS as NavLink[];
 
   // Handle keyboard navigation
-  const handleKeyDown = useCallback((e: KeyboardEvent) => {
-    if (!isOpen) return;
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      if (!isOpen) return;
 
-    switch (e.key) {
-      case "ArrowDown":
-        e.preventDefault();
-        setActiveIndex(prev => (prev + 1) % navLinks.length);
-        break;
-      case "ArrowUp":
-        e.preventDefault();
-        setActiveIndex(prev => (prev - 1 + navLinks.length) % navLinks.length);
-        break;
-      case "Escape":
-        setIsOpen(false);
-        break;
-      case "Enter":
-        if (activeIndex >= 0) {
-            window.location.href = navLinks[activeIndex].href;
+      switch (e.key) {
+        case "ArrowDown":
+          e.preventDefault();
+          setActiveIndex((prev) => (prev + 1) % navLinks.length);
+          break;
+        case "ArrowUp":
+          e.preventDefault();
+          setActiveIndex(
+            (prev) => (prev - 1 + navLinks.length) % navLinks.length
+          );
+          break;
+        case "Escape":
           setIsOpen(false);
-        }
-        break;
-    }
-  }, [isOpen]);
+          break;
+        case "Enter":
+          if (activeIndex >= 0) {
+            window.location.href = navLinks[activeIndex].href;
+            setIsOpen(false);
+          }
+          break;
+      }
+    },
+    [isOpen]
+  );
 
   // Handle touch gestures
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -73,7 +78,8 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
     const currentTouch = e.touches[0].clientX;
     const diff = touchStart - currentTouch;
 
-    if (diff > 50) { // Swipe left
+    if (diff > 50) {
+      // Swipe left
       setIsOpen(false);
     }
   };
@@ -104,12 +110,15 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
 
     document.addEventListener("astro:before-swap", handleViewTransitionStart);
     return () => {
-      document.removeEventListener("astro:before-swap", handleViewTransitionStart);
+      document.removeEventListener(
+        "astro:before-swap",
+        handleViewTransitionStart
+      );
     };
   }, []);
 
   return (
-    <div 
+    <div
       ref={menuRef}
       className={cn("relative z-50", className)}
       onTouchStart={handleTouchStart}
@@ -142,12 +151,12 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
             "w-56 animate-in slide-in-from-top-5",
             "border rounded-lg shadow-lg"
           )}
-          style={{ 
+          style={{
             animationDuration: `${animationDuration}ms`,
-            transformOrigin: "top right" 
+            transformOrigin: "top right",
           }}
         >
-            {navLinks.map((item, index) => (
+          {navLinks.map((item, index) => (
             <DropdownMenuItem
               key={item.href}
               asChild
@@ -162,7 +171,9 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
                 href={item.href}
                 className="w-full"
                 onClick={() => closeOnNavigation && setIsOpen(false)}
-                onKeyDown={(e) => e.key === "Enter" && closeOnNavigation && setIsOpen(false)}
+                onKeyDown={(e) =>
+                  e.key === "Enter" && closeOnNavigation && setIsOpen(false)
+                }
                 role="menuitem"
                 tabIndex={0}
               >

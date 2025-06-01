@@ -22,37 +22,16 @@ export async function getStaticPaths({
 
 const { page } = Astro.props
 
-function formatMonth(date: Date): string {
-  return date.toLocaleString('en-US', { month: 'long' })
-}
-
-const postsByYearAndMonth = page.data.reduce(
-  (acc: Record<string, Record<string, CollectionEntry<'blog'>[]>>, post) => {
+const postsByYear = page.data.reduce(
+  (acc: Record<string, CollectionEntry<'blog'>[]>, post) => {
     const year = post.data.date.getFullYear().toString()
-    const month = formatMonth(post.data.date)
-    
-    if (!acc[year]) {
-      acc[year] = {}
-    }
-    if (!acc[year][month]) {
-      acc[year][month] = []
-    }
-    
-    acc[year][month].push(post)
+    ;(acc[year] ??= []).push(post)
     return acc
   },
   {},
 )
 
-const years = Object.keys(postsByYearAndMonth).sort((a, b) => parseInt(b) - parseInt(a))
-
-function getMonthOrder(month: string): number {
-  const months = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
-  ]
-  return months.indexOf(month)
-}
+const years = Object.keys(postsByYear).sort((a, b) => parseInt(b) - parseInt(a))
 ---
 
 <Layout title="Blog" description="Blog">
@@ -65,29 +44,20 @@ function getMonthOrder(month: string): number {
     />
 
     <div class="flex min-h-[calc(100vh-18rem)] flex-col gap-y-8">
-        {
+      {
         years.map((year) => (
-          <section class="flex flex-col gap-y-6">
-          <h2 class="text-2xl font-bold">{year}</h2>
-          {Object.keys(postsByYearAndMonth[year])
-            .sort((a, b) => getMonthOrder(b) - getMonthOrder(a))
-            .map((month) => (
-            <div class="flex flex-col gap-y-4">
-              <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-300">
-              {month}
-              </h3>
-              <ul class="not-prose flex flex-col gap-4 pl-4">
-              {postsByYearAndMonth[year][month].map((post) => (
+          <section class="flex flex-col gap-y-4">
+            <div class="font-semibold">{year}</div>
+            <ul class="not-prose flex flex-col gap-4">
+              {postsByYear[year].map((post) => (
                 <li>
-                <BlogCard entry={post} />
+                  <BlogCard entry={post} />
                 </li>
               ))}
-              </ul>
-            </div>
-            ))}
+            </ul>
           </section>
         ))
-        }
+      }
     </div>
 
     <PaginationComponent

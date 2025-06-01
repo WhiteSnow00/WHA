@@ -1,17 +1,16 @@
-import React from 'react';
+import React from "react";
 import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { type ButtonProps, buttonVariants } from "@/components/ui/button";
 
-
-
 const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => (
-
-
   <nav
     role="navigation"
     aria-label="pagination"
-    className={cn("mx-auto flex w-full justify-center transition-opacity duration-200", className)}
+    className={cn(
+      "mx-auto flex w-full justify-center transition-opacity duration-200",
+      className
+    )}
     {...props}
   />
 );
@@ -109,7 +108,10 @@ const PaginationEllipsis = ({
 }: React.ComponentProps<"span"> & { onClick?: () => void }) => (
   <span
     aria-hidden
-    className={cn("flex h-9 w-9 items-center justify-center cursor-pointer hover:bg-accent hover:text-accent-foreground", className)}
+    className={cn(
+      "flex h-9 w-9 items-center justify-center cursor-pointer hover:bg-accent hover:text-accent-foreground",
+      className
+    )}
     onClick={onClick}
     {...props}
   >
@@ -137,38 +139,37 @@ const PaginationComponent: React.FC<PaginationProps> = ({
   showFirstLast = true,
 }) => {
   const [showInput, setShowInput] = React.useState<number | null>(null);
-  const [inputValue, setInputValue] = React.useState('');
+  const [inputValue, setInputValue] = React.useState("");
   const inputRef = React.useRef<HTMLInputElement>(null);
-
 
   const handleEllipsisClick = (index: number) => {
     setShowInput(index);
-    setInputValue('');
+    setInputValue("");
     setTimeout(() => {
       inputRef.current?.focus();
     }, 0);
   };
 
   const handleInputSubmit = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       e.preventDefault();
       const page = parseInt(inputValue);
       if (!isNaN(page) && page >= 1 && page <= totalPages) {
         // Create a link element that matches our PaginationLink structure
-        const link = document.createElement('a');
+        const link = document.createElement("a");
         link.href = getPageUrl(page);
-        link.className = buttonVariants({ variant: 'ghost' });
+        link.className = buttonVariants({ variant: "ghost" });
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
-        
+
         onPageChange?.(page);
         setShowInput(null);
-        setInputValue('');
+        setInputValue("");
       }
-    } else if (e.key === 'Escape') {
+    } else if (e.key === "Escape") {
       setShowInput(null);
-      setInputValue('');
+      setInputValue("");
     }
   };
 
@@ -179,17 +180,19 @@ const PaginationComponent: React.FC<PaginationProps> = ({
 
     if (showEllipsisStart) {
       range.push(1);
-      if (currentPage > maxVisiblePages - 1) range.push('...');
+      if (currentPage > maxVisiblePages - 1) range.push("...");
     }
 
-    for (let i = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
-         i <= Math.min(totalPages, currentPage + Math.floor(maxVisiblePages / 2));
-         i++) {
+    for (
+      let i = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+      i <= Math.min(totalPages, currentPage + Math.floor(maxVisiblePages / 2));
+      i++
+    ) {
       range.push(i);
     }
 
     if (showEllipsisEnd) {
-      if (currentPage < totalPages - (maxVisiblePages - 2)) range.push('...');
+      if (currentPage < totalPages - (maxVisiblePages - 2)) range.push("...");
       range.push(totalPages);
     }
 
@@ -197,67 +200,66 @@ const PaginationComponent: React.FC<PaginationProps> = ({
   };
 
   const getPageUrl = (page: number) => {
-    const normalizedBaseUrl = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+    const normalizedBaseUrl = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
     if (page === 1) return normalizedBaseUrl;
     return `${normalizedBaseUrl}${page}`;
   };
 
-  const handlePageClick = (e: React.MouseEvent<HTMLAnchorElement>, page: number) => {
+  const handlePageClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    page: number
+  ) => {
     if (page === currentPage) {
       e.preventDefault();
       return;
     }
-    e.currentTarget.setAttribute('data-astro-transition', '');
+    e.currentTarget.setAttribute("data-astro-transition", "");
     onPageChange?.(page);
   };
 
-
   const handleKeyboardNavigation = (e: React.KeyboardEvent) => {
-    if (e.key === 'ArrowLeft' && currentPage > 1) {
+    if (e.key === "ArrowLeft" && currentPage > 1) {
       onPageChange?.(currentPage - 1);
-    } else if (e.key === 'ArrowRight' && currentPage < totalPages) {
+    } else if (e.key === "ArrowRight" && currentPage < totalPages) {
       onPageChange?.(currentPage + 1);
-    } else if (e.key === 'Home') {
+    } else if (e.key === "Home") {
       onPageChange?.(1);
-    } else if (e.key === 'End') {
+    } else if (e.key === "End") {
       onPageChange?.(totalPages);
     }
   };
 
-
-
-
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.altKey && e.key === 'p') {
+      if (e.altKey && e.key === "p") {
         onPageChange?.(currentPage > 1 ? currentPage - 1 : currentPage);
-      } else if (e.altKey && e.key === 'n') {
-        onPageChange?.(currentPage < totalPages ? currentPage + 1 : currentPage);
+      } else if (e.altKey && e.key === "n") {
+        onPageChange?.(
+          currentPage < totalPages ? currentPage + 1 : currentPage
+        );
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [currentPage, totalPages, onPageChange]);
 
   return (
     <Pagination>
-        <PaginationContent 
+      <PaginationContent
         className="flex-wrap"
-        style={{ viewTransitionName: 'pagination' }}
+        style={{ viewTransitionName: "pagination" }}
         onKeyDown={handleKeyboardNavigation}
         role="navigation"
         aria-label="Pagination Navigation"
-
-        >
+      >
         {showFirstLast && (
           <PaginationItem>
             <PaginationLink
               href={getPageUrl(1)}
               isDisabled={currentPage === 1}
               aria-label="Go to first page"
-                  onClick={(e) => handlePageClick(e, 1)}
-
+              onClick={(e) => handlePageClick(e, 1)}
             >
               First
             </PaginationLink>
@@ -265,30 +267,28 @@ const PaginationComponent: React.FC<PaginationProps> = ({
         )}
 
         <PaginationItem>
-            <PaginationPrevious
+          <PaginationPrevious
             href={currentPage > 1 ? getPageUrl(currentPage - 1) : undefined}
             isDisabled={currentPage === 1}
             onClick={(e) => handlePageClick(e, currentPage - 1)}
             data-astro-transition
-
-            />
+          />
         </PaginationItem>
 
         {getPageRange().map((page, index) => (
           <PaginationItem key={`${page}-${index}`}>
-            {typeof page === 'number' ? (
+            {typeof page === "number" ? (
               <PaginationLink
-              href={getPageUrl(page)}
-              isActive={page === currentPage}
+                href={getPageUrl(page)}
+                isActive={page === currentPage}
                 onClick={(e) => handlePageClick(e, page)}
-                aria-current={page === currentPage ? 'page' : undefined}
+                aria-current={page === currentPage ? "page" : undefined}
                 data-astro-transition
               >
-              {page}
+                {page}
               </PaginationLink>
-            ) : (
-              showInput === index ? (
-                <input
+            ) : showInput === index ? (
+              <input
                 ref={inputRef}
                 type="number"
                 min={1}
@@ -298,23 +298,22 @@ const PaginationComponent: React.FC<PaginationProps> = ({
                 onKeyDown={handleInputSubmit}
                 onBlur={() => setShowInput(null)}
                 className="w-16 h-9 rounded-md border border-input bg-background px-3 py-1 text-sm ring-offset-background [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                />
-
-              ) : (
+              />
+            ) : (
               <PaginationEllipsis onClick={() => handleEllipsisClick(index)} />
-              )
             )}
           </PaginationItem>
         ))}
 
         <PaginationItem>
-            <PaginationNext
-            href={currentPage < totalPages ? getPageUrl(currentPage + 1) : undefined}
+          <PaginationNext
+            href={
+              currentPage < totalPages ? getPageUrl(currentPage + 1) : undefined
+            }
             isDisabled={currentPage === totalPages}
             onClick={(e) => handlePageClick(e, currentPage + 1)}
             data-astro-transition
-
-            />
+          />
         </PaginationItem>
 
         {showFirstLast && (
@@ -323,9 +322,8 @@ const PaginationComponent: React.FC<PaginationProps> = ({
               href={getPageUrl(totalPages)}
               isDisabled={currentPage === totalPages}
               aria-label="Go to last page"
-                    onClick={(e) => handlePageClick(e, totalPages)}
-                    data-astro-transition
-
+              onClick={(e) => handlePageClick(e, totalPages)}
+              data-astro-transition
             >
               Last
             </PaginationLink>
@@ -333,15 +331,13 @@ const PaginationComponent: React.FC<PaginationProps> = ({
         )}
       </PaginationContent>
 
-        <div 
+      <div
         className="mt-2 text-center text-sm text-muted-foreground"
-        style={{ viewTransitionName: 'page-info' }}
-        >
-
+        style={{ viewTransitionName: "page-info" }}
+      >
         Page {currentPage} of {totalPages}
-        </div>
+      </div>
     </Pagination>
-
   );
 };
 

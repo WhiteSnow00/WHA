@@ -17,7 +17,6 @@ export async function parseAuthors(authors: string[]) {
         isRegistered: !!author,
       };
     } catch (error) {
-      // Suppress console.error to reduce noise
       return {
         slug,
         name: slug,

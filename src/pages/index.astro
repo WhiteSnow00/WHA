@@ -12,6 +12,7 @@ import Container from "@components/Container.astro";
 import Link from "@components/Link.astro";
 import { SITE } from "@consts";
 import Layout from "@layouts/Layout.astro";
+import { Stars } from "lucide-react";
 import { getCollection } from "astro:content";
 
 const blog = (await getCollection("blog"))
@@ -31,10 +32,9 @@ const blog = (await getCollection("blog"))
       <Card className="relative z-10 mt-52 bg-background/50 backdrop-blur-lg">
         <CardHeader>
           <CardTitle className="text-center text-3xl">WHA</CardTitle>
-          <CardDescription className="text-center"
-            >/wɑː/ &bull; <span class="font-semibold">Witch Hat Atelier</span
-            ></CardDescription
-          >
+          <CardDescription className="text-center">
+            /wɑː/ • <span class="font-semibold">Witch Hat Atelier</span>
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <p class="text-center text-sm text-muted-foreground">
@@ -44,7 +44,10 @@ const blog = (await getCollection("blog"))
       </Card>
     </section>
     <section class="flex flex-col gap-y-4">
-      <h2 class="text-2xl font-bold">Latest posts</h2>
+      <h2 class="text-2xl font-bold flex items-center gap-3">
+        <Stars className="w-6 h-6" />
+        <span>Latest posts</span>
+      </h2>
       <ul class="not-prose flex flex-col gap-y-4">
         {
           blog.map((post) => (
@@ -61,7 +64,7 @@ const blog = (await getCollection("blog"))
         >
           See all posts <span
             class="ml-1.5 transition-transform group-hover:translate-x-1"
-            >&rarr;</span
+            >→</span
           >
         </Link>
       </div>
