@@ -1,0 +1,514 @@
+---
+title: "Phân tích Lyrics Tsuisou no Despair"
+createdAt: "2026-06-01"
+updatedAt: "2026-06-01"
+description: "Nhạc hay nên viết lung tung"
+tags:
+  - "Higurashi"
+  - "Analysis"
+  - "Psychological"
+  - "Music "
+  - "Philosophical"
+---
+
+export const Block = ({ children }) => (
+  <div style={{ padding: '16px', borderLeft: '4px solid #ff6b6b', backgroundColor: '#1a1b26', color: '#a9b1d6', borderRadius: '4px', marginBottom: '16px' }}>
+    {children}
+  </div>
+);
+
+| Kanji | Romanji |
+| --- | --- |
+| 打ち疲れた | Uchitsukareta |
+|  |  |
+| この鼓動は | Kono kodou wa |
+|  |  |
+| 無力で儚いもの | Muryoku de hakanai mono |
+|  |  |
+| 痛みは空よりも麗らかに | Itami wa sora yori mo uraraka ni |
+|  |  |
+| 屋上に空があった | Okujou ni sora ga atta |
+|  |  |
+| 風も、熱も、 | kaze mo, netsu mo, |
+|  |  |
+| 夢も、明日も | yume mo, asu mo |
+|  |  |
+| 空気中に彷徨った | Kuukichuu ni samayotta |
+|  |  |
+| 理想、怒り、視線、刹那 | Risou, ikari,shisen, setsuna |
+|  |  |
+| 渦を巻くような | Uzu o maku you na |
+|  |  |
+| 暗く深い場所 | Kuraku fukai basho |
+|  |  |
+| ジリジリ音をたてて | Jirijiri oto o tatete |
+|  |  |
+| 絡め取られ | Karametorare |
+|  |  |
+| 数え切れぬ程の瞳が | Kazoekirenu hodo no hitomi ga |
+|  |  |
+| 全部笑ったら | Zenbu warattara |
+|  |  |
+| 後ろの正面 | Ushiro no shoumen |
+|  |  |
+| その目は誰？ | Sono me wa dare? |
+|  |  |
+| アイヤイエー | AIYAIYE |
+|  |  |
+| まるで闇に描かれた | Marude yamini egakareta |
+|  |  |
+| 叶わない夢模様 | Kanawanai yume moyou |
+|  |  |
+| 髪を振り乱すような | Kami o furimidasu you na |
+|  |  |
+| 気配がざわめく | Kehai ga zawameku |
+|  |  |
+| やがてそこに訪れた | Yagate soko ni otozureta |
+|  |  |
+| 両手に余る悲しみ | Ryoute ni amaru kanashimi |
+|  |  |
+| 叫びは高らかに | Sakebi wa takaraka ni |
+|  |  |
+| 慈しむほど | Itsukushimu hodo |
+|  |  |
+| 痛みは空よりも麗らかに | Itamiwa sorayorimo urarakani |
+|  |  |
+| 追想のディスペア | Tsuisou no despair |
+|  |  |
+| 教室で誰が笑う | Kyoushitsu de dare ga warau |
+|  |  |
+| 染まる、嘆く、抱く、叫ぶ | Somaru, nageku, idaku, sakebu |
+|  |  |
+| 透明で目に見えない | Toumeide meni mienai |
+|  |  |
+| 意識、言葉、不安、未来 | Ishiki, kotoba, fuan, mirai |
+|  |  |
+| 訝る暗鬼 真昼の狂気は | Ibukaru anki Mahiru no kyouki wa |
+|  |  |
+| 口元が不自然に | Kuchimoto ga fushizen ni |
+|  |  |
+| 引きつったまま | Hikitsutta mama |
+|  |  |
+| おいでおいでされたら最後 | Oide oide saretara saigo |
+|  |  |
+| さよならも言えず | Sayonara mo iezu |
+|  |  |
+| 目が合えば早い呼吸になる | Me ga aeba hayai kokyuu ni naru |
+|  |  |
+| アイヤイエー | AIYAIYE |
+|  |  |
+| 打ち疲れたこの鼓動は | Uchitsukareta kono kodou wa |
+|  |  |
+| 無力で儚いもの | Muryoku de hakanai mono |
+|  |  |
+| 爪で掻き毟るような | Tsume de kakimushiru you na |
+|  |  |
+| 僅かな残像 | Wazukana zanzou |
+|  |  |
+| そして海に落ち込んだ | Soshite umini ochikonda |
+|  |  |
+| 箱詰めのクォークと | Hakozume no kuooku to |
+|  |  |
+| 放物線を描く | Houbutsusen o egaku |
+|  |  |
+| 紅い軌跡は | Akai kiseki wa |
+|  |  |
+| 最上の末路に彩られ | Saijou no matsuro ni irodorare |
+|  |  |
+| 追想のディスペア | Tsuisou no despair |
+|  |  |
+| まるで闇に描かれた | Marude yami ni egakareta |
+|  |  |
+| 叶わない夢模様 | Kanawanai yume moyou |
+|  |  |
+| 髪を振り乱すような | Kami o furimidasu you na |
+|  |  |
+| 気配がざわめく | Kehai ga zawameku |
+|  |  |
+| やがてそこに訪れた | Yagate soko ni otozureta |
+|  |  |
+| 両手に余る悲しみ | Ryoute ni amaru kanashimi |
+|  |  |
+| 叫びは高らかに | Sakebi wa takaraka ni |
+|  |  |
+| 慈しむほど | Itsukushimu hodo |
+|  |  |
+| 痛みは空よりも麗らかに | Itami wa sora yori mo uraraka ni |
+|  |  |
+| 追想のディスペア | Tsuisou no despair |
+|  |  |
+
+<Block>
+
+**打ち疲れたこの鼓動は**, tượng
+trưng cho Rika, người trải qua hàng trăm năm loop vòng lặp, kiệt quệ về tâm lý
+ 
+</Block>
+
+---
+
+<Block>
+
+**痛みは空よりも麗らかに** trong đó **麗らか** thường là để mô tả bầu trời xanh kiểu theo ý nghĩa tích cực, nỗi đau được miêu tả rực rỡ hơn bầu trời =&gt; mô tả nó quá lớn và vượt qua ranh giới thông thường. Nỗi đau không còn là cảm xúc tiêu cực mà nó trở nên rực rỡ như những vì sao băng rực sáng trên nền trời đêm.
+
+Và sau cái rực rỡ của sự sụp đổ ấy, những gì còn lại chỉ là:
+
+**追想のディスペア** / Hồi ức đầy sự tuyệt vọng
+
+Thông thường, cụm truy tưởng / **追想** là hành động ngắm nhìn quá khứ với sự hoài niệm nhưng với **Rika Furude**, người đã trải qua hơn trăm năm vòng lặp thì kí ức chính là hình phạt tàn khốc nhất.
+
+Mỗi lần hồi tưởng, cô không thấy một quá khứ êm đềm mà chỉ thấy hàng trăm nụ cười biến dần trở nên điên loạn, hàng trăm cái chết vô nghĩa.
+
+Tác giả cố tình dùng từ mượn tiếng Anh **ディスペア** / Despair thay vì **絶望** / Zetsubou của tiếng Nhật, tạo ra một khoảng cách lạnh lẽo. Nó cho thấy sự tuyệt vọng đã vượt qua ranh giới của cảm xúc con người, trở thành một trạng thái tĩnh lặng và vô cảm.
+
+Cụm từ này cũng chính là sự hiện thân của **Frederica Bernkastel** tức cái thực thể được sinh ra từ chính cái “hồi ức đầy sự tuyệt vọng” của Rika, nó lạnh lùng lượn lờ trên **Sea Fragment** và ghi chép lại những cái chết như một người quan sát. Rika đã không còn bị đau đớn hành hạ bởi cô đã trở thành chính sự tuyệt vọng ấy.
+
+</Block>
+
+---
+
+<Block>
+
+**アイヤーエエーオーアイヨー** là cụm tượng thanh, hoặc là âm thanh của các
+nghi lễ tín ngưỡng cổ xưa và còn lại tiếng hát trong trò chơi dân gian của nhật,
+nó gắn trực tiếp tới nghi lễ tại Đền Furude trong Higurashi, cái nơi Rika làm
+miko trong các nghi lễ, còn vế sau thì có thể gắn với câu hỏi trong trò chơi
+Kagome Kagome. Một bài đồng dao dân gian gắn liền với hình ảnh trẻ em vây quanh
+một đứa trẻ bịt mắt rồi có câu **後ろの正面だあれ?**(Ai đang ở sau lưng bạn?)
+ 
+</Block>
+
+---
+
+<Block>
+
+**屋上に空があった** hình ảnh sân thượng là một hình ảnh trừu tượng
+trong game/anime/manga nhật mô tả một nơi tách biệt khỏi thế giới thực, không
+gian nằm giữa trời và đất,  là nơi con
+người có thể nhìn ngắm bầu trời mà không bị giới hạn bởi các tòa nhà. Trong
+game thì ta có thể liệt kê vài hình ảnh gắn với sân thượng: Shion Sonozaki tự tử
+bằng cách nhảy xuống từ sân thượng, Keiichi Maebara đứng trên sân thượng trong
+arc Tatarigoroshi-hen khi lên kế hoạch giết Teppei Houjou, Natsumi Kimiyoshi gặp
+Akira Toudou trên sân thượng trong arc Someutsushi-hen ngay trước khi cố
+giết anh rồi tự sát.
+
+</Block>
+
+---
+
+<Block>
+
+**風も、熱も、夢も、明日も**/Cơn gió, hơi nóng, giấc mơ, tương lai tạo ra những
+yếu tố vừa trừu tượng nhưng lại cụ thể. Gió và nhiệt là những thứ có thể cảm nhận
+ngay lập tức, trong khi giấc mơ và ngày mai là những khái niệm trừu tượng đại
+diện cho hy vọng và tương lai. Câu ngay sau nó là **空気中に彷徨った**(lang thang trong
+không trung) gợi hình ảnh mọi thứ đang trở nên bất định/phi định hình, tạo cảm
+giác mơ hồ. Kiểu nó tồn tại nhưng không thể nắm lấy, giống như nỗi sợ và sự
+nghi ngờ trong tâm trí các nhân vật khi họ dần mất đi liên hệ với thực tại
+ 
+</Block>
+
+---
+
+<Block>
+
+**理想、怒り、視線、刹那** tiếp tục lại là 1 cụm khác: lý tưởng, căm hận,
+ánh mắt và khoảnh khắc. Breakdown ra ta có: lý tưởng là cảm xúc tích cực, căm hận
+là tiêu cực, ánh mắt đại diện cho sự chú ý/nghi ngờ còn khoảnh khắc ở đây tôi
+nghĩ nó ref tới phật giáo về sự vô thường, rằng mọi thứ chỉ tồn tại trong một
+khoảnh khắc ngắn ngủi. Kiểu nó là biểu tượng cho sự bất an luôn thường trực
+trong các nhân vật, niềm vui có thể chuyển thành nỗi kinh hoàng chỉ trong một
+khoảnh khắc như cách mà cuộc sống bình yên ở Hinamizawa bị phá vỡ bởi các vụ giết
+người hàng loạt
+ 
+</Block>
+
+---
+
+<Block>
+
+**渦を巻くような暗く深い場所** cái **渦** trong câu này nó biểu thị cho vòng lặp
+thời gian mà Rika phải trải qua mỗi lần chết thì cô được đưa trở lại một điểm
+khác trong quá khứ nhưng các sự kiện bi kịch luôn lặp lại theo cùng một dạng. Ngoài
+ra nó còn có thể hiểu theo hướng sự suy sụp tâm lý mà con người không thể thoát
+ra bởi khi họ rơi vào trạng thái hoang tưởng và loạn thần của Hinamizawa
+Syndrome, tâm trí họ bị cuốn vào một vòng xoáy của những suy nghĩ tiêu cực ngày
+càng lún sâu và mờ đi nhận thức 
+ 
+</Block>
+
+---
+
+<Block>
+
+**ジリジリ** lại là 1 cụm tượng thanh giống tiếng đồ ăn đang được
+nướng trên ngọn lửa nhỏ hoặc da thịt bị thiêu đốt từ từ. Nó là từ tượng thanh
+cho việc tâm lý bị tra tấn trong thời gian dài chứ không phải một cú sốc đến đột
+ngột. Bản chất nó chính là cách Hinamizawa Syndrome đang hoạt động. Rõ ràng nó
+không gây điên loạn cho người bệnh ngay lập tức mà bắt đầu bằng những triệu chứng
+nhẹ như ngứa ngáy cổ họng, cảm giác bị theo dõi hay là nghi ngờ bạn bè, rồi dần
+dần leo thang thành hoang tưởng và bạo lực. “**絡め取られ**” bị cuốn vào/bị trói buộc nhấn mạnh
+tính chất không thể tránh khỏi của bi kịch của người bị bệnh này. Còn **後ろの正面**
+nó chính là cái câu trong trò đồng dao tôi nói trước đó ấy(**後ろの正面だあれ**),
+bình thường ushiro và shoumen
+không nên được tách ra ở đây nhưng nếu tách ra thì 1 từ có nghĩa là đằng sau
+còn 1 từ có nghĩa là chính diện. Nói dễ hiểu nó đang tạo cảm giác cho sự bất an
+khi bạn không thể thấy được người sau lưng mình nhưng với họ bạn lại là người
+chính diện.
+ 
+</Block>
+
+---
+
+<Block>
+
+Nói cách khác nó đang mô tả 1 góc của tâm lý hoang tưởng,
+như ai xem/chơi rồi thì cũng biết khi mắc bệnh thì họ bắt đầu nghi ngờ tất cả mọi
+người xung quanh. Rõ ràng họ không thể thấy được đằng sau(ý định của người
+khác) và câu hỏi “đôi mắt đó là của ai?” trong lời hát ở ngay dưới câu vô số
+đôi mắt đều cười gợi lên khung cảnh mọi người xung quanh từ bạn bè, gia đình,
+người trong làng, đều biến thành những kẻ thù với nụ cười điên loạn. Gắn vào
+game thì nó chính là trải nghiệm của Keiichi trong Onikakushi-hen khi anh bắt đầu
+nghi ngờ Rena và Mion, của Shion trong Meakashi-hen, và của Natsumi trong
+Someutsushi-hen khi cô cảm thấy bị bạn bè và gia đình phản bội
+ 
+</Block>
+
+---
+
+<Block>
+
+Một số giả thuyết về nguồn gốc của trò Kagome Kagome liên
+quan đến cái chết và sự tra tấn: có người cho rằng bài hát mô tả tù nhân bị xử
+trảm nhìn thấy người đứng sau mình là đao phủ, hoặc người phụ nữ bị sảy thai do
+bị đẩy ngã từ phía sau. Trong ngữ cảnh Higurashi, tất cả các giả thuyết này đều
+phù hợp: nhân vật luôn ở trong tình trạng bị săn đuổi, bị phán xét, và luôn
+mang suy nghĩ rằng cái chết có thể đến từ phía sau bất cứ lúc nào
+ 
+</Block>
+
+---
+
+<Block>
+
+**闇に描かれた** là hình ảnh của sự vô vọng giống như vẽ một bức
+tranh trong đêm đen mà không ai có thể nhìn thấy. Nó là hình ảnh của Rika
+Furude, người đã vẽ hàng trăm lần để cố gắng thay đổi kết cục bi kịch trong mỗi
+vòng lặp, nhưng lần nào cũng thất bại. **叶わない** chính là keyword của series này:
+dù Rika cố gắng bao nhiêu, “quy tắc” (Rules X, Y, Z) của vũ trụ Higurashi luôn
+dẫn đến cái chết của cô vào đêm lễ hội Watanagashi
+ 
+</Block>
+
+---
+
+<Block>
+
+**髪を振り乱すような** thì tạo nên hình ảnh điên loạn và bất lực. Vì
+trong văn hóa ở nhật, để xõa tóc chính là hình ảnh của sự mất kiểm soát bởi phụ
+nữ nhật luôn phải giữ đầu tóc gọn gàng nên việc chủ ý để tóc rối tung chỉ xảy
+ra trong trạng thái cực kỳ đau khổ hoặc điên cuồng, đó chính là các nhân vật nữ
+khi rơi vào giai đoạn cuối của Hinamizawa Syndrome thì họ thường có biểu cảm
+khuôn mặt méo mó, tóc tai bù xù đặc biệt là Rena Ryuugu trong arc
+Tsumihoroboshi-hen và Shion Sonozaki trong Meakashi-hen. **気配** (hơi
+thở/hình bóng) kết hợp với **ざわめく**(thì thầm/xì xào) tạo cảm giác bị theo dõi điển hình của
+căn bệnh này
+ 
+</Block>
+
+---
+
+<Block>
+
+**両手に余る悲しみ** = ẩn dụ vật lý về việc nỗi buồn vượt quá sức chịu
+đựng. Dùng hình ảnh hai bàn tay ôm lấy để mô tả tính hữu hình, vật lý của nỗi
+đau tức nó có khối lượng/thể tích nhưng đã vượt quá khả năng có thể mang được bằng
+bàn tay. Đối với Natsumi Kimiyoshi, đây là nỗi buồn của việc mất gia đình, mất
+bạn bè và cả đánh mất chính mình. Đối với Rika, đây là nỗi buồn tích lũy qua
+hàng trăm năm chứng kiến những người cô yêu thương chết đi một cách vô nghĩa
+ 
+</Block>
+
+---
+
+<Block>
+
+**叫びは高らかに慈しむほど** ẩn dụ cho việc các nhân vật trong Higurashi đến
+giai đoạn điên loạn sẽ cố gắng để thể hiện tình yêu theo cách bạo lực. Ví dụ
+Shion tra tấn những người cô cho là có liên quan đến cái chết của Satoshi vì cô
+“yêu” cậu ta, còn Rena giữ đầu người cô giết trong tủ lạnh vì cô “yêu” họ và
+không muốn họ rời đi. Tiếng thét “đầy yêu thương” là tiếng thét của nỗi đau đớn
+đã biến thành ác ý của tình yêu bị bóp méo thành sự ám ảnh
+ 
+</Block>
+
+---
+
+<Block>
+
+**教室**/lớp học chính là thiên đường trước khi địa ngục ập đến,
+nó là nơi nhóm bạn Keiichi chơi những trò chơi sau giờ học, cười đùa vui vẻ.
+Nhưng cái cụm **誰が笑う**xuất hiện đã đánh bay cái sự bình thường đó, bởi tiếng cười chính là một
+trong những dấu hiệu rõ ràng nhất của sự điên loạn. Những nhân vật như Rena và
+Shion có tiếng cườì điên cuồng (ufufu hay ohohoho) đã trở thành những meme phổ
+biến bị cắt ghép, những nụ cười này nhằm che đi ý định giết chóc
+ 
+</Block>
+
+---
+
+<Block>
+
+**染まる、嘆く、抱く、叫ぶ** tiếp tục là một cụm khác mô tả quá trình căn bệnh
+Hinamizawa Syndrome dần phát triển. Nhuốm màu là hành vi tâm trí bị bủa vây bởi
+sự nghi ngờ và sợ hãi, giai đoạn sau là than khóc khi bệnh nhân nhận ra điều gì
+đó sai trái nhưng không thể làm gì, ôm ấp mang nhiều nghĩa: nó có thể là ôm ấp
+ý định giết chóc, ôm ấp ảo tưởng... và cuối cùng là gào thét, đỉnh điểm của những
+hành vi bạo lực
+ 
+</Block>
+
+---
+
+<Block>
+
+Cụm **透明で目に見えない** thì lại mô tả bản chất vô hình của căn bệnh bởi
+virus này tồn tại trong não người nhiễm nhưng không thể phát hiện bằng mắt thường.
+Các triệu chứng tâm lý bao gồm ý thức mơ hồ, lời nói vô nghĩa, sự bất an vô cớ
+hay tương lai mù mịt thì chúng đều là những thứ trong suốt không thể chạm vào
+nhưng lại ám ảnh tâm trí. Nói dễ hiểu hơn thì sự hoang tưởng/paranoia bao gồm
+việc nhân vật tin rằng có một thứ gì đó vô hình đang ở trong cơ thể mình, vì
+virus thực sự tồn tại trong não bộ của họ
+ 
+</Block>
+
+---
+
+<Block>
+
+**訝る** là từ thuộc văn viết mang nghĩa nghi ngờ/ngạc nhiên/cảm
+thấy kỳ lạ. Còn **暗鬼**
+dịch nghĩa đen là con quỷ trong bóng tối, nó là vế sau của thành ngữ **疑心生暗鬼**(nghi
+tâm sinh quỷ ám) nhằm chỉ những nỗi sợ và nghi ngờ xuất phát từ việc thiếu
+thông tin và khi kết hợp thành **訝る暗鬼** tạo thành một từ ghép mang nghĩa sự nghi ngờ sinh ra từ
+bóng tối của tâm trí. Nó chính là giai đoạn đầu của căn bệnh khi người bệnh bắt
+đầu nghi ngờ mọi người xung quanh không vì lý do rõ ràng nào mà chỉ vì có một
+con quỷ trong bóng tối của tâm trí thì thầm rằng họ đang bị phản bội.
+ 
+</Block>
+
+---
+
+<Block>
+
+**真昼の狂気** nó gần tương tự với cụm madness in broad daylight
+trong đó in broad daylight là một thành ngữ ở phương tây đại khái ám chỉ sự
+điên rồ xảy ra trong hoàn cảnh bình thường nhất. Nói một cách dễ hiểu thì trong
+Higurashi thì bạn không cần phải ở một nơi tối tăm để phát điên bởi lẽ ánh sáng
+mặt trời không bảo vệ bạn khỏi sự điên loạn. Các nhân vật trong Higurashi thường
+có những cơn hoang tưởng ngay giữa ban ngày lại còn tại những địa điểm quen thuộc
+như trường học hoặc nhà riêng
+ 
+</Block>
+
+---
+
+<Block>
+
+**口元が不自然に引きつったまま** lại mô tả một chi tiết sinh lý/y học chính
+xác của bệnh nhân bị tâm thần. Co giật cơ mặt, đặc biệt là vùng miệng, là triệu
+chứng của căng thẳng thần kinh cực độ và có thể là dấu hiệu của rối loạn tâm thần,
+ví dụ như nhân vật Miyo Takano có cái nụ cười rất không tự nhiên. Cô là kiểu
+người cố gắng duy trì vẻ ngoài bình thường trong khi bên trong là một tâm hồn bị
+tổn thương từ thời thơ ấu. Hay các nhân vật khác như Keiichi trong
+Onikakushi-hen cũng mô tả cảm giác khuôn mặt bị biến dạng khi đang cười trong
+cơn hoang tưởng
+ 
+</Block>
+
+---
+
+<Block>
+
+**おいでおいでされたら最後** thì lại mang hình ảnh của sự dụ dỗ nhưng không
+phải dụ dỗ nghiện ngập hay sa đọa mà là dụ dỗ tới cái chết. Một chi tiết cần
+quan tâm là **おいでおいで**
+là cách người lớn gọi trẻ con đến gần, nghe bình thường đúng không? Nhưng trong
+Higurashi thì đây là lời mời gọi để người bệnh tự sát hoặc bị sát hại ví dụ như
+Tomitake Jirou bị tiêm thuốc hoặc Takano lôi kéo các nạn nhân vào kế hoạch của
+mình. **さよならも言えず**/Không
+thể nói lời tạm biệt nhấn mạnh thêm vào cái phần đột ngột của cái chết, nếu
+chơi game bạn sẽ thấy nhiều người chết mà không thể nói được câu tạm biệt với
+người thân
+ 
+</Block>
+
+---
+
+<Block>
+
+Đoạn cuối bắt đầu với phân cảnh **爪で掻きむしる**, trong Higurashi ở
+giai đoạn cuối tức L5 là nạn nhân cào rách cổ họng của chính mình bằng móng tay
+cho đến chết. Hành vi này xảy ra với Tomitake Jirou hàng năm, và cũng là cách
+Natsumi Kimiyoshi tự sát trong arc Someutsushi-hen. **僅かな残像** thì gợi lại dư âm/dư
+ảnh kéo dài của hành vi ngay cả khi nó đã dừng lại. Câu tiếp theo là**箱詰めのクォーク**,
+chắc nhiều người đến đây nhìn thấy từ quark chắc cũng đơ ra 2s và hỏi nó có
+liên quan tới vật lý không? Thì có, nó là hạt cơ bản cấu thành nên proton và
+neutron, từ đó tạo nên nguyên tử và vật chất. Cái hình ảnh ẩn dụ quark bị giam
+trong hộp thì có 2 lý thuyết được gắn với boxed quarks / particle in a box là
+Color Confinement hoặc MIT Bag Model và Infinite potential well, tôi không đi
+sâu vào cái này nhưng nhạc của Shikura Chiyomaru thường sử dụng các tham chiếu
+khoa học kiểu như này và nếu bạn từng đọc lyrics trong các bài nhạc của ổng viết
+thì không lạ mấy chi tiết kiểu này (có thể tìm nghe Skyclad Observer hoặc
+Hacking to the Gate). Còn quay lại bài nhạc thì cái hình ảnh có thể được hiểu
+như này:
+ 
+- Natsumi Kimiyoshi bị giam trong “hộp” của gia đình và dòng
+máu Hinamizawa. Cô không thể thoát khỏi số phận dù chuyển đến thành phố khác
+- Rika Furude bị giam trong “hộp” của vòng lặp thời gian. Dù
+có thể di chuyển giữa các “hộp” (thế giới/thời gian) nhưng không thể thoát khỏi
+cấu trúc tổng thể 
+- Tất cả cư dân Hinamizawa đều là các hạt quark bị giam
+trong cái “hộp” của ngôi làng bởi nếu rời khỏi, virus trong cơ thể họ sẽ tự
+kích hoạt
+ 
+</Block>
+
+---
+
+<Block>
+
+**そして海に落ち込んだ** là tiếp nối hình ảnh rơi tự do vào vực thẳm còn
+hình ảnh biển ở đây 99% là ref tới Sea of Fragments, một khái niệm do Frederica
+Bernkastel đề cập tới, nó là nơi chứa vô số
+thế giới song song. Rơi xuống biển ngoài ra còn mang ý nghĩa tự sát, nó là một
+phương thức tự tử mẹ của Rika đã sử dụng trong Himatsubushi-hen khi bà tự nhận
+mình là vật tế cho Oyashiro-sama
+ 
+</Block>
+
+---
+
+<Block>
+
+**放物線を描く紅い軌跡**, lại một thứ liên quan tới toán/lý. Parabol là
+đường cong của vật thể rơi tự do dưới tác dụng của trọng lực tức một quỹ đạo
+toán học không thể thay đổi. **紅い** ở đây ai cũng có thể liên tưởng tới máu rồi, ngoài hiểu
+máy móc giọt máu rơi xuống theo hình parabol ta có thể hiểu đơn giản là một cơ
+thể đẫm máu rơi từ trên cao xuống. Ref thì nhanh thôi ta có Shion nhảy từ tòa
+nhà cao tầng hay các nạn nhân của lễ hội Watanagashi bị ném xuống đầm
+Onigafuchi
+ 
+</Block>
+
+---
+
+<Block>
+
+**最上の末路に彩られ** thì **最上** trong đây mang nghĩa tuyệt nhất/cao
+nhất nhưng ở đây nó thiên hướng sang kết cục không thể tránh khỏi. **彩られ**/được
+tô màu ở đây để biến cái chết/đau khổ thành một thứ tác phẩm nghệ thuật với máu
+là màu sắc, quỹ đạo rơi là nét vẽ, nó thể hiện rõ cái tragedy aesthetic/thẩm mỹ
+của sự bi kịch để chỉ ra rằng cái chết không chỉ là kết thúc mà còn là sự giải
+thoát khỏi vòng lặp đau khổ, một thứ tác phẩm hoàn chỉnh trong chuỗi bi kịch
+</Block>
